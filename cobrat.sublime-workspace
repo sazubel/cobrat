@@ -1,0 +1,745 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"este",
+				"este_sabado"
+			],
+			[
+				"ultim",
+				"ultimo_sabado"
+			],
+			[
+				"ulti",
+				"ultimo_miercoles"
+			],
+			[
+				"cani",
+				"cantidad_creditos_terminados_miercoles"
+			],
+			[
+				"canti",
+				"cantidad_cuotas_real"
+			],
+			[
+				"canid",
+				"cantidad_cuotas_normal"
+			],
+			[
+				"f",
+				"f_var_cant_cuotas"
+			],
+			[
+				"f_",
+				"f_var_monto_cuota"
+			],
+			[
+				"feca",
+				"fecha_de_pago_credito"
+			],
+			[
+				"fo",
+				"formulario_pago"
+			],
+			[
+				"fecha",
+				"fecha_ideal_de_pago"
+			],
+			[
+				"cant",
+				"cantidad_creditos_sabados"
+			],
+			[
+				"cantida",
+				"cantidad_creditos_sabados"
+			],
+			[
+				"ca",
+				"cantidad_creditos_miercoles"
+			],
+			[
+				"sea",
+				"semana_miercoles"
+			],
+			[
+				"can",
+				"cantidad_cuotas_normal"
+			],
+			[
+				"semana",
+				"semana_sabado"
+			],
+			[
+				"is",
+				"is_float"
+			],
+			[
+				"monto",
+				"monto_cuota"
+			],
+			[
+				"Y",
+				"Y-m-d"
+			],
+			[
+				"p",
+				"php"
+			],
+			[
+				"sal",
+				"saldo_atraso_miercoles"
+			],
+			[
+				"atraso",
+				"atraso_miercoles"
+			],
+			[
+				"pago",
+				"pago_comision"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"ultimo",
+				"ultimo_pago"
+			],
+			[
+				"tabla",
+				"tabla_pago_creditos"
+			],
+			[
+				"where",
+				"WHERE"
+			],
+			[
+				"from",
+				"FROM"
+			],
+			[
+				"fecha_",
+				"fecha_de_pago_credito"
+			],
+			[
+				"saldo",
+				"saldo_cuota"
+			],
+			[
+				"sl",
+				"saldo_cuota"
+			],
+			[
+				"is_d",
+				"is_double"
+			],
+			[
+				"is_in",
+				"is_integer"
+			],
+			[
+				"saldo_c",
+				"saldo_cuota"
+			],
+			[
+				"is_i",
+				"is_int"
+			],
+			[
+				"case",
+				"case	case …"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "application/views/administracion-cobrador/pagina_escritorio.php",
+			"settings":
+			{
+				"buffer_size": 9438,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 490.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Git (SideBarGit): File: Add"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"xdeb",
+				"Xdebug: Stop Debugging (Launch Browser)"
+			],
+			[
+				"web",
+				"BracketHighlighter: Wrap Selections with Brackets"
+			],
+			[
+				"xde",
+				"Xdebug: Clear Breakpoints"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"xdeg",
+				"Preferences: Xdebug Settings – Default"
+			],
+			[
+				"XDEE",
+				"Xdebug: Set Watch Expression"
+			],
+			[
+				"jquery",
+				"Snippet: jQuery ready function"
+			],
+			[
+				"instll",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Disable Package"
+			]
+		],
+		"width": 912.0
+	},
+	"console":
+	{
+		"height": 162.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/xampp/htdocs/COBRAT",
+		"/C/xampp/htdocs/COBRAT/application",
+		"/C/xampp/htdocs/COBRAT/application/views",
+		"/C/xampp/htdocs/COBRAT/application/views/administracion-cobrador"
+	],
+	"file_history":
+	[
+		"/C/xampp/htdocs/COBRAT/views/administracion-cobrador/pagina_escritorio.php",
+		"/C/xampp/htdocs/COBRAT/ftpsync.settings",
+		"/C/xampp/htdocs/COBRAT/application/views/administracion-cobrador/pagina_escritorio.php",
+		"/C/xampp/htdocs/COBRAT/application/config/config.php",
+		"/C/xampp/htdocs/COBRAT/application/controllers/controladores-cobrador/controlador_administracion.php",
+		"/C/xampp/htdocs/COBRAT/application/controllers/controladores-login/controlador_login.php",
+		"/C/xampp/htdocs/COBRAT/application/config/routes.php",
+		"/C/xampp/htdocs/COBRAT/application/config/database.php",
+		"/C/xampp/htdocs/COBRAT/application/controllers/controladores-login/config.php",
+		"/C/xampp/htdocs/COBRAT/.htaccess",
+		"/C/xampp/htdocs/COBRAT/application/libraries/MY_Input.php",
+		"/C/xampp/htdocs/COBRAT/application/config/autoload.php",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/Xdebug Client/Xdebug.sublime-settings",
+		"/C/xampp/htdocs/COBRAT/cobrat.sublime-project",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/User/Xdebug.sublime-settings",
+		"/C/xampp/htdocs/COBRAT/views/administracion-cobrador/pagina_agregar_credito.php",
+		"/C/xampp/htdocs/COBRAT/application/views/administracion-cobrador/pagina_agregar_credito2.php",
+		"/C/xampp/htdocs/COBRAT/application/views/administracion-cobrador/pagina_escritorio - copia.php",
+		"/C/xampp/htdocs/COBRAT/application/models/modelos-cobrador/modelo_creditos.php",
+		"/C/xampp/htdocs/COBRAT/application/views/administracion-cobrador/pagina_mostrar_credito.php",
+		"/C/xampp/htdocs/COBRAT/application/controllers/controladores-cobrador/controlador_administracion_pagos.php",
+		"/C/xampp/htdocs/COBRAT/application/models/modelos-cobrador/modelo_pagos.php",
+		"/C/xampp/htdocs/COBRAT/application/controllers/controladores-cobrador/controlador_administracion_creditos.php",
+		"/C/xampp/htdocs/COBRAT/application/views/administracion-cobrador/pagina_agregar_credito.php",
+		"/C/COBRAT/ftpsync.settings",
+		"/C/COBRAT/application/controllers/controladores-cobrador/controlador_administracion_creditos.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_agregar_credito.php",
+		"/C/COBRAT/application/controllers/controladores-cobrador/controlador_admin_creditos.php",
+		"/C/COBRAT/application/controllers/controladores-cobrador/controlador_administracion_pagos.php",
+		"/C/COBRAT/application/controllers/controladores-cobrador/controlador_administracion.php",
+		"/C/COBRAT/application/models/modelos-cobrador/modelo_creditos.php",
+		"/C/COBRAT/application/models/modelos-cobrador/modelo_pagos.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_escritorio.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_listar_creditos_semanales.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_listar_cierre_caja.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_mostrar_credito.php",
+		"/C/COBRAT/application/views/administracion-cobrador/admin_cabecera.php",
+		"/C/COBRAT/stylesheets/font-awesome.min.css",
+		"/C/COBRAT/application/views/administracion-cobrador/admin_sidebar_menu.php",
+		"/C/COBRAT/application/models/modelos-cobrador/modelo_clientes.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_listar_cierre.php",
+		"/C/COBRAT/application/views/administracion-cobrador/admin_menu_top.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_listar_clientes.php",
+		"/C/COBRAT/application/controllers/controladores-cobrador/controlador_administracion_clientes.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_agregar_clientes.php",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_listar_creditos_semanales.php.back",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_listar_creditos.php",
+		"/C/COBRAT/application/controllers/controladores-admin/controlador_administracion.php",
+		"/C/COBRAT/application/models/modelos-cobrador/modelo_creditos-back.php",
+		"/C/COBRAT/application/controllers/controladores-admin/controlador_administracion_clientes.php",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/Diffy/Diffy.sublime-settings",
+		"/C/COBRAT/user_guide/installation/downloads.html",
+		"/C/COBRAT/user_guide/installation/troubleshooting.html",
+		"/C/COBRAT/user_guide/overview/getting_started.html",
+		"/C/COBRAT/css/invoice.css",
+		"/C/COBRAT/index.php",
+		"/C/COBRAT/application/views/administracion/pagina_agregar_clientes.php",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/BracketHighlighter/Example.sublime-keymap",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/BracketHighlighter/bh_core.sublime-settings",
+		"/C/COBRAT/application/views/administracion-cobrador/pagina_listar_creditos - copia (2).php",
+		"/C/COBRAT/application/views/administracion-cobrador/ftpsync.settings",
+		"/C/COBRAT/application/views/administracion-cobrador/admin_cuerpo.php",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/FTPSync/FTPSync.sublime-settings",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/FTPSync/Default (Windows).sublime-keymap",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/SFTP/SFTP.sublime-settings",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/sazubel/AppData/Roaming/Sublime Text 3/Packages/SFTP/Default (Windows).sublime-keymap",
+		"/C/COBRAT/sftp-config.json"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 117.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"semana_miercoles",
+			"ultimo_miercoles",
+			"login",
+			"enable_query_strings",
+			"login",
+			"LOGIN",
+			"|\n",
+			"AUTO",
+			"enable_query_strings",
+			"uri_protocol",
+			"PATH_INFO",
+			"AUTO",
+			"PATH",
+			"permitted_uri_chars",
+			"/\",",
+			"termina",
+			"termina_miercoles",
+			"saldo_miercoles",
+			"cantidad_creditos_miercoles",
+			"formulario_creditos",
+			"f_var_cant_cuotas",
+			"form",
+			"f_var_cant_cuotas",
+			"f_var_cant_cuotas_sem",
+			"f_var_cant_cuotas",
+			"confirmar-aceptar",
+			"validar",
+			"f_var_cant_cuotas_sem",
+			"f_var_cant_cuotas",
+			"manual",
+			"combo_cuotas_sem",
+			"f_var_cant_cuotas",
+			"validar_campos",
+			"validar_campos();",
+			"aceptar_solicitud",
+			"f_var_cant_cuotas",
+			"aceptar_solicitud",
+			"f_var_cant_cuotas",
+			"hiddem",
+			"4",
+			"f_var_cant_cuotas",
+			"4",
+			"agregar",
+			"pago",
+			"num",
+			"atraso_sabado",
+			"saldo_miercoles",
+			"listar",
+			"semanales",
+			"dia_cobranza",
+			"cuot",
+			"debe",
+			"ingresar",
+			"cierre",
+			"comisi",
+			"f_var_cant_cuotas_sem",
+			"13",
+			"24",
+			"24\\\\\\",
+			"f_var_monto_cuota",
+			"f_monto_cuota",
+			"f_var_cant_cuotas_sem",
+			"f_var_cant_cuotas",
+			"> 8",
+			"1.32",
+			"> 9",
+			"> 6",
+			"6",
+			"24",
+			"23",
+			"24",
+			"			\n",
+			"montocuota",
+			"cuota",
+			"monto_cuota",
+			"listar",
+			"comision",
+			"salir",
+			"listar",
+			"redirect",
+			"cierre_caja",
+			"listar_cierre",
+			"listar",
+			"id_credito",
+			"mostrar_credito",
+			"lista_pagos",
+			"mostrar",
+			"mostar",
+			"cierre_caja",
+			"credito",
+			"creditos",
+			"listar",
+			"inser",
+			"listar",
+			"agregar",
+			"ingresar-pago",
+			"CIERRE",
+			"credito",
+			"lista",
+			"lista_pagos",
+			"listar_pagos_de_un_credito",
+			" \".$",
+			"Moroso",
+			"display",
+			"admin",
+			"controladores-cobrador",
+			"form_pagos",
+			"form",
+			"realizar",
+			"boton_aceptar"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"> 9",
+			"1.4",
+			"> 8",
+			"> 9",
+			"controladores-admin"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "application/views/administracion-cobrador/pagina_escritorio.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9438,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3981,
+								3981
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1492.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.6,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.7,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 130.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 130.0
+	},
+	"output.xdebug":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "cobrat.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"xdebug":
+		{
+			"hide_conflict": false,
+			"restore_index":
+			{
+				"64":
+				{
+					"group": 2,
+					"index": 0
+				},
+				"69":
+				{
+					"group": 0,
+					"index": 0
+				}
+			},
+			"restore_layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						2,
+						1
+					],
+					[
+						0,
+						1,
+						1,
+						2
+					],
+					[
+						1,
+						1,
+						2,
+						2
+					]
+				],
+				"cols":
+				[
+					0.0,
+					0.6,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					0.7,
+					1.0
+				]
+			}
+		}
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 446.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
