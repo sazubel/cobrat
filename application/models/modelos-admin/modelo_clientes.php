@@ -57,3 +57,4 @@ function alta_de_clientes($formulario_clientes)
 		$this->db->order_by('apellido_cliente', 'asc'); 
 		return $this->db->get();
 	}
+}
