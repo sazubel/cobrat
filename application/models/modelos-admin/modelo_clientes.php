@@ -38,7 +38,7 @@ function validar_dni()
 function alta_de_clientes($formulario_clientes)
 	{
 		$query = $this->db->query('SELECT * FROM tabla_clientes where dni_cliente="'.$formulario_clientes["dni_clientes"].'"');
-		if($query->num_rows() == 0){
+		if($query->num_rows() === 0){
 			$this->db->insert('tabla_clientes', $formulario_clientes);
 			return TRUE;
 		}
