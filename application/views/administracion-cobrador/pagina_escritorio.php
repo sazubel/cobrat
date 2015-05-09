@@ -1,3 +1,37 @@
+<script language="javascript" src="<?php echo base_url();?>js/Jquery.js"></script>
+<script type="text/javascript">
+
+		$( "#borrar" ).dialog({
+			  height: 'auto',
+			  autoOpen: false,
+			  resizable: false,
+			  height:140,
+			  modal: true,
+			  buttons: {
+				"Aceptar": function(){
+                                  $( this ).dialog( "close" );  
+				},
+				Cancel: function() {
+				  $( this ).dialog( "close" );
+				}
+			  }
+			});			
+				$("#boton_borrar" ).click(function(){
+                                $("#testing").htm('eee');
+	      			$("#confirmar_borrar" ).dialog( "open" );
+                                
+    			});
+
+
+
+
+</script>
+<div id="confirmar_borrar" title="ADVERTENCIA">
+	<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 10px 20px 0;"></span>Seguro que deseas borrar el pago?</p>
+        <div id="testing"></div>
+</div>
+                  
+
 <div id="content">		
 		
 		<div id="contentHeader">
@@ -186,7 +220,7 @@
 					</div> <!-- .widget-header -->
 					<div class="widget-content"></div> <!-- .widget-content -->
 				</div> <!-- .widget -->	
-			</div> <!-- .grid -->			
+			</div> <!-- .grid -->
 			<div class="grid-7">
 				<div id="gettingStarted" class="box">
 					<h3>Avance de cobranzas semanales</h3>
@@ -201,13 +235,14 @@
 					<a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_clientes/agregar_cliente" class="btn btn-quaternary btn-large dashboard_add">Agregar nuevo Cliente</a>					
 				</div>
 				<div class="box">
-					<h3>Ultimas Actividades<br> registradasen el sistema</h3>
+					<h3>Ultimos Pagos registrados</h3>
+                                        <?php foreach ($lista->result() as $row) { 
+                                            if(date("Y-m-d",  strtotime($row->ultimo_pago)) == $hoy){
+                                            ?>
 					<ul class="bullet secondary">
-						<li>Proximamente</li>
+						<?php echo $row->nombre_cliente; ?> <?php echo $row->apellido_cliente; ?> <?php echo $row->ultimo_pago; ?> <?php echo $row->monto_cuota; ?> <a id="boton_borrar" class="boton_borrar" value="<?php echo $row->id_pago; ?>"><?php echo $row->id_pago; ?></a>
 					</ul>
-					<ul class="bullet primary">
-						<li>Proximamente</li>
-					</ul>
+                                            <?php }} ?>
 				</div> <!-- .box -->
 			</div> <!-- .grid -->
 		</div> <!-- .container -->		

@@ -10,7 +10,8 @@ function helper_traducir_fecha($fecha_ingles)
 	$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 	
 	$fecha = strtotime($fecha_ingles);
-	$fechatraducida =$dias[date('w',$fecha)]." ".date('d',$fecha)." de ".$meses[date('n')-1]. " del ".date('Y',$fecha);
+	//$fechatraducida =$dias[date('w',$fecha)]." ".date('d',$fecha)." de ".$meses[date('n')-1]. " del ".date('Y',$fecha);
+	$fechatraducida =$dias[date('w',$fecha)]." ".date('d',$fecha);
 	return $fechatraducida;					
 }
 
