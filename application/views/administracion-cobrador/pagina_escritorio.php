@@ -182,7 +182,7 @@
 						</div>
 						<div class="dashboard_report defaultState last">
 							<div class="pad">
-								<span class="value"><?php echo $semana_miercoles - $termina_miercoles; ?> pagos</span>$<?php echo $monto_abonado_miercoles; ?> recaudados desde el <?php echo helper_traducir_fecha($ultimo_miercoles);?>
+								<span class="value"><?php echo $semana_miercoles - $termina_miercoles; ?> pagos</span>$<?php echo $monto_abonado_miercoles; ?> recaudados desde cierre de caja del <?php echo helper_traducir_fecha($ultimo_miercoles);?>
 							</div> <!-- .pad -->
 						</div>
 					</div> <!-- .widget-content -->
@@ -216,7 +216,7 @@
 						</div>
 						<div class="dashboard_report defaultState last">
 							<div class="pad">
-								<span class="value"><?php echo $semana_sabado - $termina_sabado; ?> pagos</span>$<?php echo $monto_abonado_sabado; ?> recaudados desde el <?php echo helper_traducir_fecha($ultimo_sabado);?>
+								<span class="value"><?php echo $semana_sabado - $termina_sabado; ?> pagos</span>$<?php echo $monto_abonado_sabado; ?> recaudados desde cierre de caja del <?php echo helper_traducir_fecha($ultimo_sabado);?>
 							</div> <!-- .pad -->
 						</div>
 					</div> <!-- .widget-content -->
