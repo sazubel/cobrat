@@ -143,8 +143,8 @@
 				break;
 		}
 
-		$cantidad_creditos_totales = $cantidad_creditos_miercoles + $cantidad_creditos_sabados;
-		$semana_total = $semana_miercoles + $semana_sabado;
+		$cantidad_creditos_totales = $saldo_sabado + $saldo_miercoles;
+		$semana_total = $monto_abonado_miercoles + $monto_abonado_sabado;
 		$avance_total = round(($semana_total/$cantidad_creditos_totales),2)*100;
 	 
 	}
@@ -233,15 +233,10 @@
 			<div class="grid-7">
 				<div id="gettingStarted" class="box">
 					<h3>Avance de cobranzas semanales</h3>
-					<p>Queda un <?php echo 100 - $avance_total; ?>% del total de créditos para cobrar</p>
+					<p>Queda cobrar un <?php echo 100 - $avance_total; ?>% de la recaudacion esperada ($<?php echo $cantidad_creditos_totales; ?>)</p>
 					<div class="progress-bar secondary">
 						<div class="bar" style="width: <?php echo $avance_total; ?>%;"><?php echo $avance_total; ?>%</div>
 					</div>
-				</div>
-				<div class="box plain">
-					<a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_creditos/listar_creditos" class="btn btn-primary btn-large dashboard_add">Registrar Pago</a>
-					<a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_creditos/agregar_credito" class="btn btn-tertiary btn-large dashboard_add">Agregar nuevo Crédito</a>
-					<a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_clientes/agregar_cliente" class="btn btn-quaternary btn-large dashboard_add">Agregar nuevo Cliente</a>					
 				</div>
 				<div class="box">
 					<h3>Ultimos Pagos registrados</h3>
