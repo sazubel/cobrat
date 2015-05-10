@@ -10,7 +10,10 @@ public function escritorio()
 				
 				//echo ('LOS DATOS INGRESADOS SON CORRECTOS');
 				$this -> load -> model ('modelos-cobrador/modelo_creditos');
+				$this -> load -> model ('modelos-cobrador/modelo_pagos');              
 				$data['lista'] = $this -> modelo_creditos -> listar_creditos();
+                                $data['cierre_caja'] = $this -> modelo_pagos -> listar_ultimo_cierre_caja();
+                                $data['ultimos_pagos'] = $this -> modelo_pagos -> listar_ultimos_pagos();
 				$data['titulo_pagina']="Sistema de Administracion - Cobrat";
 				$data['sidebar_botonera']="administracion-cobrador/admin_sidebar_menu";
 				$data['admin_menu_top']="administracion-cobrador/admin_menu_top";

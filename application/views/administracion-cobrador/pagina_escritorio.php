@@ -66,12 +66,34 @@
 	$este_sabado = date("Y-m-d",$este_sabado);
 	//$hoy = date('Y-m-d H:i:s');
 	$hoy = date('Y-m-d');
-	if($este_miercoles < $hoy) {
+	if($este_miercoles <= $hoy) {
 		$ultimo_miercoles = $este_miercoles;
 	} 
-	if($este_sabado < $hoy) {
+	if($este_sabado <= $hoy) {
 		$ultimo_sabado = $este_sabado;
-	}	
+	}
+        
+        foreach ($cierre_caja->result() as $row) {
+            $ultimo_cierre_caja = $row->fecha_cierre;
+        }
+        $ultimo_sabado = $ultimo_cierre_caja;
+        $ultimo_miercoles = $ultimo_cierre_caja;
+        
+        foreach ($ultimos_pagos->result() as $row) {	
+            $ultimo_pago_miercoles = date("Y-m-d",strtotime($row->fecha_de_pago_credito));
+            if(($ultimo_pago_miercoles > $ultimo_cierre_caja) && ($row->id_dia_cobranza == 1)){					
+                $semana_miercoles = $semana_miercoles +1;
+                $monto_abonado_miercoles = $row->monto_de_pago_credito + $monto_abonado_miercoles;												
+            }			                        
+        }
+        
+        foreach ($ultimos_pagos->result() as $row) {	
+            $ultimo_pago_sabado = date("Y-m-d",strtotime($row->fecha_de_pago_credito));
+            if(($ultimo_pago_sabado > $ultimo_cierre_caja) && ($row->id_dia_cobranza == 2)){					
+                $semana_sabado = $semana_sabado +1;
+                $monto_abonado_sabado = $row->monto_de_pago_credito + $monto_abonado_sabado;												
+            }			                        
+        }        
 	foreach ($lista->result() as $row) {
 		switch ($row->dia_cobranza) {
 			case 'Miercoles':
@@ -95,14 +117,6 @@
 					}
 				}
 				
-				$ultimo_pago = date("Y-m-d",strtotime($row->ultimo_pago));				
-				if(($ultimo_pago > $ultimo_miercoles)){
-					//if(($row->cantidad_cuotas_real) >= (floor($row->cantidad_cuotas_normal))){
-							$semana_miercoles = $semana_miercoles +1;
-							$monto_abonado_miercoles = $row->monto_cuota + $monto_abonado_miercoles;
-					//}	
-				}
-				
 				break;
 			
 			case 'Sabado':
@@ -123,17 +137,12 @@
 								$saldo_atraso_sabado = ((floor($row->cantidad_cuotas_normal)*$row->monto_cuota)-$row->monto_abonado) + $saldo_atraso_sabado;						
 							}
 
-					}
-				$ultimo_pago_sabado = date("Y-m-d",strtotime($row->ultimo_pago));				
-				if(($ultimo_pago_sabado > $ultimo_sabado)){
-					//if(($row->cantidad_cuotas_real) >= (floor($row->cantidad_cuotas_normal))){
-							$semana_sabado = $semana_sabado +1;
-							$monto_abonado_sabado = $row->monto_cuota + $monto_abonado_sabado;
-							
-					//}	
-				}				
+                                    	}
+                                
+                                
 				break;
 		}
+
 		$cantidad_creditos_totales = $cantidad_creditos_miercoles + $cantidad_creditos_sabados;
 		$semana_total = $semana_miercoles + $semana_sabado;
 		$avance_total = round(($semana_total/$cantidad_creditos_totales),2)*100;
@@ -236,11 +245,11 @@
 				</div>
 				<div class="box">
 					<h3>Ultimos Pagos registrados</h3>
-                                        <?php foreach ($lista->result() as $row) { 
-                                            if(date("Y-m-d",  strtotime($row->ultimo_pago)) == $hoy){
+                                        <?php foreach ($ultimos_pagos->result() as $row) { 
+                                            if(date("Y-m-d",  strtotime($row->fecha_de_pago_credito)) == $hoy){
                                             ?>
 					<ul class="bullet secondary">
-						<?php echo $row->nombre_cliente; ?> <?php echo $row->apellido_cliente; ?> <?php echo $row->ultimo_pago; ?> <?php echo $row->monto_cuota; ?> <a id="boton_borrar" class="boton_borrar" value="<?php echo $row->id_pago; ?>"><?php echo $row->id_pago; ?></a>
+						<?php echo $row->nombre_cliente; ?> <?php echo $row->apellido_cliente; ?> <?php echo $row->fecha_de_pago_credito; ?> pago $<?php echo $row->monto_de_pago_credito; ?> <a id="boton_borrar" class="boton_borrar" value="<?php echo $row->id_pago_creditos; ?>"><?php echo $row->id_pago_creditos; ?></a>
 					</ul>
                                             <?php }} ?>
 				</div> <!-- .box -->
