@@ -225,9 +225,35 @@
 				<div class="widget widget-table">
 					<div class="widget-header">
 						<span class="icon-list"></span>
-						<h3 class="icon aperture">Tables</h3>
+						<h3 class="icon aperture">Grafica de ultimas recaudaciones</h3>
 					</div> <!-- .widget-header -->
-					<div class="widget-content"></div> <!-- .widget-content -->
+                                        <div class="widget-content">
+                                            <table class="stats" data-chart-type="line" data-chart-colors="">
+								
+								<thead>
+										<tr>
+											<td>&nbsp;</td>
+											<th>cierre </th>
+											<th>cierre</th>
+											<th>cierre</th>
+                                                                                        <th>cierre</th>
+										</tr>
+			
+									</thead>
+									
+									<tbody>	
+										
+										<tr>
+											<th>Recaudacion en pesos</th>
+                                                                                        <td>8090</td>
+                                                                                        <td>8760</td>
+                                                                                        <td>6510</td>
+											<td>9390</td>
+										</tr>														
+									</tbody>
+							</table>
+                                        </div> 
+                                        <!-- .widget-content -->
 				</div> <!-- .widget -->	
 			</div> <!-- .grid -->
 			<div class="grid-7">
