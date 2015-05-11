@@ -233,7 +233,18 @@
 			<div class="grid-7">
 				<div id="gettingStarted" class="box">
 					<h3>Avance de cobranzas semanales</h3>
-					<p>Queda cobrar un <?php echo 100 - $avance_total; ?>% de la recaudacion esperada ($<?php echo $cantidad_creditos_totales; ?>)</p>
+                                        <?php 
+                                        if($avance_total < 70){ 
+                                            $ticket="ticket ticket-important";
+                                        } 
+                                        if($avance_total >= 70 && $avance_total < 90){
+                                            $ticket="ticket ticket-warning";
+                                          }
+                                        if($avance_total > 90){
+                                            $ticket = "ticket ticket-success";
+                                        }
+                                        ?>
+                                        <p>Queda cobrar un <span class="<?php echo $ticket; ?>"><?php echo 100 - $avance_total; ?>%</span> de la recaudacion esperada <span class="ticket ticket-success">($<?php echo $cantidad_creditos_totales; ?>)</span></p>
 					<div class="progress-bar secondary">
 						<div class="bar" style="width: <?php echo $avance_total; ?>%;"><?php echo $avance_total; ?>%</div>
 					</div>
