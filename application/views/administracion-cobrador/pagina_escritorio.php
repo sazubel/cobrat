@@ -277,12 +277,12 @@
 				<div class="box">
 					<h3>Ultimos Pagos registrados</h3>
                                         <?php foreach ($ultimos_pagos->result() as $row) { 
-                                            if(date("Y-m-d",  strtotime($row->fecha_de_pago_credito)) == $hoy){
+                                            
                                             ?>
 					<ul class="bullet secondary">
 						<?php echo $row->nombre_cliente; ?> <?php echo $row->apellido_cliente; ?> <?php echo $row->fecha_de_pago_credito; ?> pago $<?php echo $row->monto_de_pago_credito; ?> <a id="boton_borrar" class="boton_borrar" value="<?php echo $row->id_pago_creditos; ?>"><?php echo $row->id_pago_creditos; ?></a>
 					</ul>
-                                            <?php }} ?>
+                                            <?php } ?>
 				</div> <!-- .box -->
 			</div> <!-- .grid -->
 		</div> <!-- .container -->		
