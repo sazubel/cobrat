@@ -131,9 +131,13 @@ function listar_ultimo_cierre_caja()
 	}
 function listar_ultimos_pagos()
 	{
+        $ultimo_cierre = $this->db->query("select fecha_cierre from tabla_cierre_caja order by fecha_cierre desc limit 1");
+        foreach ($ultimo_cierre->result() as $row){
+            $ultimo_cierre_caja = $row->fecha_cierre; 
+        }
 	$listar_ultimos_pagos = $this->db->query("SELECT tc.id_dia_cobranza,tpc.id_pago_creditos, tpc.fecha_de_pago_credito, tcl.nombre_cliente, tcl.apellido_cliente, tpc.monto_de_pago_credito 
                       FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
-                      WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente ORDER BY `tpc`.`fecha_de_pago_credito` DESC");
+                      WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente and tpc.fecha_de_pago_credito > '".$ultimo_cierre_caja."' ORDER BY `tpc`.`fecha_de_pago_credito` DESC");
 	return $listar_ultimos_pagos;
         
 	}
