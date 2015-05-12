@@ -145,10 +145,11 @@
 
 		$cantidad_creditos_totales = $saldo_sabado + $saldo_miercoles;
 		$semana_total = $monto_abonado_miercoles + $monto_abonado_sabado;
-		$avance_total = round(($semana_total/$cantidad_creditos_totales),2)*100;
 	 
 	}
-?>
+		$avance_total = round(($semana_total/$cantidad_creditos_totales),2)*100;
+
+        ?>
 		<div class="container">
 			<div class="grid-17">
 				<div class="widget widget-plain">
