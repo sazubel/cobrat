@@ -230,27 +230,25 @@
                                         <div class="widget-content">
                                             <table class="stats" data-chart-type="line" data-chart-colors="">
 								
-								<thead>
-										<tr>
-											<td>&nbsp;</td>
-											<th>cierre </th>
-											<th>cierre</th>
-											<th>cierre</th>
-                                                                                        <th>cierre</th>
-										</tr>
+								 <thead>
+                                                                        <tr>
+                                                                            <td>&nbsp;</td>
+                                                                            <?php foreach ($cierres_caja->result() as $row) { ?>
+                                                                            <th><?php echo date("Y-m-d",strtotime($row->fecha_cierre)); ?></th>
+                                                                            <?php } ?>
+									</tr>
 			
 									</thead>
-									
-									<tbody>	
-										
-										<tr>
-											<th>Recaudacion en pesos</th>
-                                                                                        <td>8090</td>
-                                                                                        <td>8760</td>
-                                                                                        <td>6510</td>
-											<td>9390</td>
-										</tr>														
+
+									<tbody>
+                                                                            <tr>
+                                                                            <th>Recaudacion en pesos</th>
+                                                                                <?php foreach ($cierres_caja->result() as $row) { ?>
+                                                                                       <td><?php echo $row->monto_caja; ?></td>
+                                                                                <?php } ?>
+                                                                            </tr>
 									</tbody>
+                                                                
 							</table>
                                         </div> 
                                         <!-- .widget-content -->

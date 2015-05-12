@@ -108,19 +108,26 @@ function alta_de_pago($formulario_pago)
 
 	function listar_cierre_caja()
 	{
+            $listar_ultimos_cierres = $this->db->query("SELECT * FROM (select * from tabla_cierre_caja ORDER BY id_cierre desc limit 10) sub order by id_cierre asc");
+	return $listar_ultimos_cierres;
+        /*
 		$this->db->select('*');
         $this->db->from('tabla_cierre_caja');
         $this->db->order_by("fecha_cierre", "desc"); 
         $this->db->limit(10);
 		return $this->db->get();
+         * 
+         */
 	}
 function listar_ultimo_cierre_caja()
 	{
-		$this->db->select('*');
+    	
+        $this->db->select('*');
         $this->db->from('tabla_cierre_caja');
         $this->db->order_by("fecha_cierre", "desc"); 
         $this->db->limit(1);
-		return $this->db->get();
+	return $this->db->get();
+    
 	}
 function listar_ultimos_pagos()
 	{
