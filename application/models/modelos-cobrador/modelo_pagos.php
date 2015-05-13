@@ -108,8 +108,10 @@ function alta_de_pago($formulario_pago)
 
 	function listar_cierre_caja()
 	{
-            $listar_ultimos_cierres = $this->db->query("SELECT * FROM (select * from tabla_cierre_caja ORDER BY id_cierre desc limit 10) sub order by id_cierre asc");
-	return $listar_ultimos_cierres;
+            //$listar_ultimos_cierres = $this->db->query("SELECT * FROM (select * from tabla_cierre_caja ORDER BY id_cierre desc limit 10) sub order by id_cierre asc");
+	
+            $listar_ultimos_cierres = $this->db->query("Select week(fecha_cierre) as semana,sum(monto_caja) as recaudacion From tabla_cierre_caja group by week(fecha_cierre) order by semana asc");
+            return $listar_ultimos_cierres;
         /*
 		$this->db->select('*');
         $this->db->from('tabla_cierre_caja');
