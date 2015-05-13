@@ -192,7 +192,7 @@ public function listar_cierre_caja()
 				/*cargo arreglo con los resultados de la funcion listar_clientes*/
 				$data = $this -> modelo_pagos -> calcular_cierre_caja();
 				$data['listar_cierre_caja'] = $this -> modelo_pagos -> listar_cierre_caja();
-
+                                //$data['listar_recaudacion'] = $this -> modelo_pagos -> listar_recaudacion();
 				$data['titulo_pagina']="Sistema de Administracion - Creditos";
 				$data['sidebar_botonera']="administracion-cobrador/admin_sidebar_menu";
 				$data['admin_menu_top']="administracion-cobrador/admin_menu_top";

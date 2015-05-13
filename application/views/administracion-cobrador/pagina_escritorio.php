@@ -234,7 +234,7 @@
 								 <thead>
                                                                         <tr>
                                                                             <td>&nbsp;</td>
-                                                                            <?php foreach ($cierres_caja->result() as $row) { ?>
+                                                                            <?php foreach ($listar_recaudacion->result() as $row) { ?>
                                                                             <th><?php echo $row->semana+1;//date("Y-m-d",strtotime($row->fecha_cierre)); ?></th>
                                                                             <?php } ?>
 									</tr>
@@ -244,7 +244,7 @@
 									<tbody>
                                                                             <tr>
                                                                             <th>Recaudacion en pesos</th>
-                                                                                <?php foreach ($cierres_caja->result() as $row) { ?>
+                                                                                <?php foreach ($listar_recaudacion->result() as $row) { ?>
                                                                                        <td><?php echo $row->recaudacion; ?></td>
                                                                                 <?php } ?>
                                                                             </tr>
