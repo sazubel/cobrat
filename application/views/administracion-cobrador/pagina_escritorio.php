@@ -235,7 +235,7 @@
                                                                         <tr>
                                                                             <td>&nbsp;</td>
                                                                             <?php foreach ($cierres_caja->result() as $row) { ?>
-                                                                            <th><?php echo date("Y-m-d",strtotime($row->fecha_cierre)); ?></th>
+                                                                            <th><?php echo $row->semana+1;//date("Y-m-d",strtotime($row->fecha_cierre)); ?></th>
                                                                             <?php } ?>
 									</tr>
 			
@@ -245,7 +245,7 @@
                                                                             <tr>
                                                                             <th>Recaudacion en pesos</th>
                                                                                 <?php foreach ($cierres_caja->result() as $row) { ?>
-                                                                                       <td><?php echo $row->monto_caja; ?></td>
+                                                                                       <td><?php echo $row->recaudacion; ?></td>
                                                                                 <?php } ?>
                                                                             </tr>
 									</tbody>
