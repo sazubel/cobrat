@@ -15,6 +15,7 @@ public function escritorio()
                                 $data['cierre_caja'] = $this -> modelo_pagos -> listar_ultimo_cierre_caja();
                                 $data['listar_recaudacion'] = $this -> modelo_pagos -> listar_recaudacion();
                                 $data['ultimos_pagos'] = $this -> modelo_pagos -> listar_ultimos_pagos();
+                                $data['listar_avance'] = $this -> modelo_pagos -> listar_avance();
 				$data['titulo_pagina']="Sistema de Administracion - Cobrat";
 				$data['sidebar_botonera']="administracion-cobrador/admin_sidebar_menu";
 				$data['admin_menu_top']="administracion-cobrador/admin_menu_top";
