@@ -230,7 +230,7 @@
 				<div class="widget widget-table">
 					<div class="widget-header">
 						<span class="icon-list"></span>
-						<h3 class="icon aperture">Grafica de ultimas recaudaciones</h3>
+						<h3 class="icon aperture">Grafica de ultimas recaudaciones </h3>
 					</div> <!-- .widget-header -->
                                         <div class="widget-content">
                                             <table class="stats" data-chart-type="line" data-chart-colors="">
@@ -247,7 +247,7 @@
 
 									<tbody>
                                                                             <tr>
-                                                                            <th>Recaudacion en pesos</th>
+                                                                            <th>Recaudacion en pesos por semana</th>
                                                                                 <?php foreach ($listar_recaudacion->result() as $row) { ?>
                                                                                        <td><?php echo $row->recaudacion; ?></td>
                                                                                 <?php } ?>
