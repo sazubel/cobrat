@@ -140,9 +140,9 @@ function listar_recaudacion()
 function listar_ultimos_pagos()
 	{
         $ultimo_cierre = $this->db->query("select fecha_cierre from tabla_cierre_caja order by fecha_cierre desc limit 1");
-        foreach ($ultimo_cierre->result() as $row){
-            $ultimo_cierre_caja = $row->fecha_cierre; 
-        }
+        $ultimo_cierre = $ultimo_cierre->row_array();
+        $ultimo_cierre_caja = $ultimo_cierre['fecha_cierre'];
+        
 	$listar_ultimos_pagos = $this->db->query("SELECT tc.id_dia_cobranza,tpc.id_pago_creditos, tpc.fecha_de_pago_credito, tcl.nombre_cliente, tcl.apellido_cliente, tpc.monto_de_pago_credito 
                       FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
                       WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente and tpc.fecha_de_pago_credito > '".$ultimo_cierre_caja."' ORDER BY `tpc`.`fecha_de_pago_credito` DESC");
@@ -218,26 +218,45 @@ function listar_avance()
                 /*
                exit();
                  */
-                 
-                 
-                 
-                
-                 
-                
         }
         
 	function calcular_cierre_caja()
 	{
-		$buscar_ultimo_cierre = $this->db->query('select max(fecha_cierre) as ultimo_cierre FROM tabla_cierre_caja');
-		foreach ($buscar_ultimo_cierre->result() as $row) {
-			$ultimo_cierre = $row->ultimo_cierre;
-		}
-		$sumar_ultimos_pagos = $this->db->query('select sum(monto_de_pago_credito) as ultimos_pagos, sum(pago_comision) as comision FROM tabla_pago_creditos WHERE fecha_de_pago_credito < now() and fecha_de_pago_credito > "'.$ultimo_cierre.'"');
-		foreach ($sumar_ultimos_pagos->result() as $row) {
-			$data["cierre_caja"]["ultimos_pagos"] = $row->ultimos_pagos;
-			$data["cierre_caja"]["comision"] = $row->comision;
-		}
-		//$this->db->query('insert into tabla_cierre_caja (fecha_cierre,monto_caja) values (now(),'.$sumar_ultimos_pagos.')');
+                $hoy = date("Y-m-d");
+                $dia_cierre = helper_traducir_fecha($hoy);
+                $dia_cierre = explode(" ", $dia_cierre);
+                $dia_cierre = $dia_cierre[0];
+                $ultimos_pagos_resta = 0;
+                $sabado_pasado = strtotime("saturday last week");
+                $sabado_pasado_fecha = date('Y-m-d 23:59', $sabado_pasado); 
+                $comision_resta = 0;
+                    $buscar_ultimo_cierre = $this->db->query('select max(fecha_cierre) as ultimo_cierre FROM tabla_cierre_caja');
+                    $buscar_ultimo_cierre = $buscar_ultimo_cierre->row_array();
+                    $ultimo_cierre = $buscar_ultimo_cierre['ultimo_cierre'];
+                    
+                    if($dia_cierre != "Sabado"){
+                        $sumar_despues_de_cierre = $this->db->query('select sum(monto_de_pago_credito) as ultimos_pagos, sum(pago_comision) as comision FROM tabla_pago_creditos WHERE fecha_de_pago_credito > "'.$sabado_pasado_fecha.'"');
+                       
+                        foreach ($sumar_despues_de_cierre->result() as $row) {
+                                $ultimos_pagos_resta = $row->ultimos_pagos;
+                                $comision_resta = $row->comision;
+                                $data["cierre_caja"]["ultimos_pagos_postcierre"] = $ultimos_pagos_resta;
+                                $data["cierre_caja"]["comision_postcierre"] = $comision_resta;
+                        }
+                    }
+                    $sumar_ultimos_pagos = $this->db->query('select sum(monto_de_pago_credito) as ultimos_pagos, sum(pago_comision) as comision FROM tabla_pago_creditos WHERE fecha_de_pago_credito < now() and fecha_de_pago_credito > "'.$ultimo_cierre.'"');
+                    foreach ($sumar_ultimos_pagos->result() as $row) {
+                            $ultimos_pagos = $row->ultimos_pagos - $ultimos_pagos_resta;
+                            $comision = $row->comision - $comision_resta;
+                            
+                            if($ultimos_pagos == 0 ) {
+                                $data["cierre_caja"]["ultimos_pagos"] = $row->ultimos_pagos;
+                                $data["cierre_caja"]["comision"] = $row->comision;
+                            } else {
+                                $data["cierre_caja"]["ultimos_pagos"] = $ultimos_pagos;
+                                $data["cierre_caja"]["comision"] = $comision;
+                            }
+                    }
 		return $data;
 	}
 
@@ -265,7 +284,11 @@ function listar_avance()
                     $fecha = date("Y-m-d h:i:s");
                 }
                 $this->db->query('insert into tabla_cierre_caja (fecha_cierre,monto_caja,comision_cierre) values ("'.$fecha.'",'.$formulario_cierre['monto_caja'].','.$formulario_cierre['comision_cierre'].')');
-		return TRUE;
+                if($formulario_cierre['monto_caja'] != ""){
+                $this->db->query('insert into tabla_cierre_caja (fecha_cierre,monto_caja,comision_cierre) values (now(),'.$formulario_cierre['monto_caja_postcierre'].','.$formulario_cierre['comision_cierre_postcierre'].')');
+        
+                }
+                return TRUE;
 	}
 
 
