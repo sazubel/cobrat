@@ -284,7 +284,7 @@ function listar_avance()
                     $fecha = date("Y-m-d h:i:s");
                 }
                 $this->db->query('insert into tabla_cierre_caja (fecha_cierre,monto_caja,comision_cierre) values ("'.$fecha.'",'.$formulario_cierre['monto_caja'].','.$formulario_cierre['comision_cierre'].')');
-                if($formulario_cierre['monto_caja'] != ""){
+                if(isset($formulario_cierre['ultimos_pagos_postcierre'])) {
                 $this->db->query('insert into tabla_cierre_caja (fecha_cierre,monto_caja,comision_cierre) values (now(),'.$formulario_cierre['monto_caja_postcierre'].','.$formulario_cierre['comision_cierre_postcierre'].')');
         
                 }

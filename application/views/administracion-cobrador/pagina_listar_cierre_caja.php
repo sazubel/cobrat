@@ -98,9 +98,10 @@ $(document).ready(function(){
                         <div class="field-group">
                         <?php if(isset($cierre_caja['ultimos_pagos'])) {?>
 						<label for="required">Recaudacion a la fecha: $<span class="ticket ticket-success"><?php echo $cierre_caja['ultimos_pagos']; ?></span><i class="fa fa-line-chart fa-lg	"></i></i></label>
-						<label for="required">Recaudacion a la fecha: $<span class="ticket ticket-success"><?php echo $cierre_caja['ultimos_pagos_postcierre']; ?></span><i class="fa fa-line-chart fa-lg	"></i></i></label>
-
-						<?php } else { ?> 
+						<?php if(isset($cierre_caja['ultimos_pagos_postcierre'])) { ?>
+                                                <label for="required">Recaudacion a la fecha: $<span class="ticket ticket-success"><?php echo $cierre_caja['ultimos_pagos_postcierre']; ?></span><i class="fa fa-line-chart fa-lg	"></i></i></label>
+                                                <?php } ?>
+                                                <?php } else { ?> 
 						<label for="required">Recaudacion a la fecha: <span class="ticket ticket-success"><?php echo "SIN COBROS AUN" ?></span> </label>
 						<?php } ?>					
 						<div class="field">
