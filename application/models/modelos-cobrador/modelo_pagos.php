@@ -146,13 +146,7 @@ function listar_ultimos_pagos()
 	$listar_ultimos_pagos = $this->db->query("SELECT tc.id_dia_cobranza,tpc.id_pago_creditos, tpc.fecha_de_pago_credito, tcl.nombre_cliente, tcl.apellido_cliente, tpc.monto_de_pago_credito 
                       FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
                       WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente and tpc.fecha_de_pago_credito > '".$ultimo_cierre_caja."' ORDER BY `tpc`.`fecha_de_pago_credito` DESC");
-	/*
-        echo "SELECT tc.id_dia_cobranza,tpc.id_pago_creditos, tpc.fecha_de_pago_credito, tcl.nombre_cliente, tcl.apellido_cliente, tpc.monto_de_pago_credito 
-                      FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
-                      WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente and tpc.fecha_de_pago_credito > '".$ultimo_cierre_caja."' ORDER BY `tpc`.`fecha_de_pago_credito` DESC";
-        exit();
-         * 
-         */
+	
         return $listar_ultimos_pagos;
         
 	}
@@ -161,20 +155,25 @@ function listar_avance()
          
             $sabado_pasado = strtotime("saturday last week");
             $sabado_pasado_fecha = date('Y-m-d', $sabado_pasado);
-            $segundos=strtotime('now') - $sabado_pasado;
+            $sabado_semana_anterior = strtotime('-7 day', strtotime($sabado_pasado_fecha));
+            $sabado_semana_anterior_fecha = date('Y-m-d', $sabado_semana_anterior);
+            $segundos=strtotime('now') - $sabado_semana_anterior;
             //$segundos=$sabado_pasado - strtotime('now');
-            echo $diferencia_dias=intval($segundos/60/60/24);
-            if($diferencia_dias > 0 && $diferencia_dias < 2) {
-                $sabado_pasado = strtotime('-7 day', strtotime($sabado_pasado_fecha));
-                $sabado_pasado_fecha = date('Y-m-d', $sabado_pasado);
-                $ultimo_cierre_sabado = $this->db->query("select max(fecha_cierre) as fecha_cierre from tabla_cierre_caja where fecha_cierre like '%".$sabado_pasado_fecha."%'");
+            $diferencia_dias=intval($segundos/60/60/24);
+            if($diferencia_dias < 8){            
+                $ultimo_cierre_sabado = $this->db->query("select max(fecha_cierre) as fecha_cierre from tabla_cierre_caja where fecha_cierre like '%".$sabado_semana_anterior_fecha."%'");
                 $ultimo_cierre_sabado = $ultimo_cierre_sabado->row_array();
                 $ultimo_cierre_preciso = $ultimo_cierre_sabado['fecha_cierre'];
-            } else {
-                 $sabado_pasado_fecha = date('Y-m-d 23:59', $sabado_pasado);
-                 $ultimo_cierre_preciso = $sabado_pasado_fecha;
                 
+                
+            } else {
+            $ultimo_cierre_preciso = date('Y-m-d 23:59', $sabado_pasado);
             }
+            
+           $listar_avance = $this->db->query("SELECT sum(tpc.monto_de_pago_credito) as avance_cobranza FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
+            WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente and tpc.fecha_de_pago_credito > '".$ultimo_cierre_preciso."' ORDER BY `tpc`.`fecha_de_pago_credito` DESC");
+
+           return $listar_avance;
             //$ultimo_cierre = $this->db->query("select max(fecha_cierre) as fecha_cierre from tabla_cierre_caja");
 
             /*
@@ -211,8 +210,6 @@ function listar_avance()
         */
         
     
-        	$listar_avance = $this->db->query("SELECT sum(tpc.monto_de_pago_credito) as avance_cobranza FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
-                      WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente and tpc.fecha_de_pago_credito > '".$ultimo_cierre_preciso."' ORDER BY `tpc`.`fecha_de_pago_credito` DESC");
              
          /*
                 echo"SELECT sum(tpc.monto_de_pago_credito) as avance_cobranza FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
@@ -226,7 +223,7 @@ function listar_avance()
                  
                 
                  
-                return $listar_avance;
+                
         }
         
 	function calcular_cierre_caja()
@@ -246,8 +243,28 @@ function listar_avance()
 
 	function ingresar_cierre_caja($formulario_cierre)
 	{
-		
-		$this->db->query('insert into tabla_cierre_caja (fecha_cierre,monto_caja,comision_cierre) values (now(),'.$formulario_cierre['monto_caja'].','.$formulario_cierre['comision_cierre'].')');
+            $hoy = date("Y-m-d");
+            $dia_cierre = helper_traducir_fecha($hoy);
+            $dia_cierre = explode(" ", $dia_cierre);
+            $dia_cierre = $dia_cierre[0];
+            if($dia_cierre == "Sabado") { 
+                 $sabado_pasado_fecha = date("Y-m-d h:i:s");
+            }else {
+                $sabado_pasado = strtotime("saturday last week");
+                 $sabado_pasado_fecha = date('Y-m-d', $sabado_pasado);
+            }
+                
+		$buscar_ultimo_pago = $this->db->query("select max(fecha_de_pago_credito) as ultimo_pago FROM tabla_pago_creditos where fecha_de_pago_credito like '%".$sabado_pasado_fecha."%'");
+                $buscar_ultimo_pago = $buscar_ultimo_pago->row_array();
+                $ultimo_pago = $buscar_ultimo_pago['ultimo_pago'];
+                $ultimo_pago_fecha = date("Y-m-d", strtotime($ultimo_pago));
+                
+                if($hoy != $ultimo_pago_fecha) {
+                    $fecha = $ultimo_pago;
+                } else {
+                    $fecha = date("Y-m-d h:i:s");
+                }
+                $this->db->query('insert into tabla_cierre_caja (fecha_cierre,monto_caja,comision_cierre) values ("'.$fecha.'",'.$formulario_cierre['monto_caja'].','.$formulario_cierre['comision_cierre'].')');
 		return TRUE;
 	}
 
