@@ -192,7 +192,7 @@ public function listar_cierre_caja()
 				/*cargo arreglo con los resultados de la funcion listar_clientes*/
 				$data = $this -> modelo_pagos -> calcular_cierre_caja();
 				$data['listar_cierre_caja'] = $this -> modelo_pagos -> listar_cierre_caja();
-
+                                //$data['listar_recaudacion'] = $this -> modelo_pagos -> listar_recaudacion();
 				$data['titulo_pagina']="Sistema de Administracion - Creditos";
 				$data['sidebar_botonera']="administracion-cobrador/admin_sidebar_menu";
 				$data['admin_menu_top']="administracion-cobrador/admin_menu_top";
@@ -227,7 +227,20 @@ public function ingresar_cierre_caja()
 				$this->load->view('administracion-cobrador/admin_template', $data);*/
 } 
 
-
+public function borrar_pago($id_pago)
+{	
+                                $this -> load -> model ('modelos-cobrador/modelo_pagos');
+                                $this -> modelo_pagos -> borrar_pago($id_pago);
+				$this -> load -> model ('modelos-cobrador/modelo_creditos');
+				$data['lista'] = $this -> modelo_creditos -> listar_creditos();
+				$data['titulo_pagina']="Sistema de Administracion - Cobrat";
+				$data['sidebar_botonera']="administracion-cobrador/admin_sidebar_menu";
+				$data['admin_menu_top']="administracion-cobrador/admin_menu_top";
+				//$data['navegacion_rapida']="administrador/pagina_admin_navagacion_rapida";
+				$data['main_content']="administracion-cobrador/pagina_escritorio";
+				$data['boton_destacado']=1;//destaco el primer boton en la botonera de la derecha		
+				$this->load->view('administracion-cobrador/admin_template', $data);
+}
 public function mostrar_credito($id_credito)
 {	
 				$this -> load -> model ('modelos-cobrador/modelo_pagos');

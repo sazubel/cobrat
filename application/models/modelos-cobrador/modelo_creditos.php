@@ -134,7 +134,7 @@ function alta_de_credito($formulario_creditos)
 	function listar_creditos()
 	{	
 
-		$listar_creditos = $this->db->query('SELECT tc.estado_credito,max(tpc.fecha_de_pago_credito) as ultimo_pago, 
+		$listar_creditos = $this->db->query('SELECT max(tpc.id_pago_creditos) as id_pago, tc.estado_credito,max(tpc.fecha_de_pago_credito) as ultimo_pago, 
 			tdc.dia as dia_cobranza, ADDDATE(tc.fecha_entrega_del_bien, 
 			INTERVAL (tct.cantidad_dias*tc.cantidad_cuotas) DAY) as fecha_fin_credito,
 		ROUND(DATEDIFF(fecha_fin_credito,Now())/tct.cantidad_dias) as semanas_restantes, 
@@ -146,7 +146,7 @@ function alta_de_credito($formulario_creditos)
 		tct.tipos_de_creditos,tct.cantidad_dias, ((tc.monto_cuota*cantidad_cuotas)-sum(tpc.monto_de_pago_credito)) as saldo 
 		FROM tabla_creditos tc, tabla_clientes tcl, tabla_creditos_tipos tct, tabla_pago_creditos tpc, tabla_dia_cobranza tdc 
 		WHERE tc.id_cliente = tcl.id_cliente and tct.id_creditos_tipos = tc.id_tipo_credito and tpc.id_credito = tc.id_credito 
-		and tdc.id_dia_cobranza = tc.id_dia_cobranza group by tc.id_credito');
+		and tdc.id_dia_cobranza = tc.id_dia_cobranza group by tc.id_credito order by ultimo_pago desc');
         return $listar_creditos;
 	}
 

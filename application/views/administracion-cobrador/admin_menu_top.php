@@ -21,6 +21,25 @@ $(document).ready(function(){
 				$( "#salir" ).click(function(){
 	      			$( "#confirmacion" ).dialog( "open" );
     			});
+                        
+                        $( "#confirmar_borrar" ).dialog({
+			  height: 'auto',
+			  autoOpen: false,
+			  resizable: false,
+			  height:140,
+			  modal: true,
+			  buttons: {
+				"Aceptar": function() {
+				  document.location ="/index.php/controladores-cobrador/controlador_administracion_pagos/mostrar_credito/";
+				},
+				Cancel: function() {
+				  $( this ).dialog( "close" );
+				}
+			  }
+			});			
+				$( "#boton_borrar" ).click(function(){
+	      			$( "#confirmar_borrar" ).dialog( "open" );
+    			});
 });
 
 

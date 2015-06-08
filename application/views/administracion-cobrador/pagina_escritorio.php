@@ -1,3 +1,37 @@
+<script language="javascript" src="<?php echo base_url();?>js/Jquery.js"></script>
+<script type="text/javascript">
+
+		$( "#borrar" ).dialog({
+			  height: 'auto',
+			  autoOpen: false,
+			  resizable: false,
+			  height:140,
+			  modal: true,
+			  buttons: {
+				"Aceptar": function(){
+                                  $( this ).dialog( "close" );  
+				},
+				Cancel: function() {
+				  $( this ).dialog( "close" );
+				}
+			  }
+			});			
+				$("#boton_borrar" ).click(function(){
+                                $("#testing").htm('eee');
+	      			$("#confirmar_borrar" ).dialog( "open" );
+                                
+    			});
+
+
+
+
+</script>
+<div id="confirmar_borrar" title="ADVERTENCIA">
+	<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 10px 20px 0;"></span>Seguro que deseas borrar el pago?</p>
+        <div id="testing"></div>
+</div>
+                  
+
 <div id="content">		
 		
 		<div id="contentHeader">
@@ -26,86 +60,100 @@
 	$semana_sabado = 0;
 	$monto_abonado_miercoles = 0;
 	$monto_abonado_sabado = 0;
+        $termina_miercoles_saldo = 0;
+        $termina_sabado_saldo = 0;    
 	$este_miercoles = strtotime("wednesday this week");
 	$este_miercoles = date("Y-m-d",$este_miercoles);
 	$este_sabado = strtotime("saturday this week");
 	$este_sabado = date("Y-m-d",$este_sabado);
 	//$hoy = date('Y-m-d H:i:s');
 	$hoy = date('Y-m-d');
-	if($este_miercoles < $hoy) {
+	if($este_miercoles <= $hoy) {
 		$ultimo_miercoles = $este_miercoles;
 	} 
-	if($este_sabado < $hoy) {
+	if($este_sabado <= $hoy) {
 		$ultimo_sabado = $este_sabado;
-	}	
+	}
+        
+        foreach ($cierre_caja->result() as $row) {
+            $ultimo_cierre_caja = $row->fecha_cierre;
+        }
+        $ultimo_sabado = $ultimo_cierre_caja;
+        $ultimo_miercoles = $ultimo_cierre_caja;
+        
+        foreach ($ultimos_pagos->result() as $row) {	
+            //$ultimo_pago_miercoles = date("Y-m-d",strtotime($row->fecha_de_pago_credito));
+            $ultimo_pago_miercoles = $row->fecha_de_pago_credito;
+            if(($ultimo_pago_miercoles > $ultimo_cierre_caja) && ($row->id_dia_cobranza == 1)){					
+                $semana_miercoles = $semana_miercoles +1;
+                $monto_abonado_miercoles = $row->monto_de_pago_credito + $monto_abonado_miercoles;												
+            }			                        
+        }
+        
+        foreach ($ultimos_pagos->result() as $row) {	
+            //$ultimo_pago_sabado = date("Y-m-d",strtotime($row->fecha_de_pago_credito));
+            $ultimo_pago_sabado = $row->fecha_de_pago_credito;
+            if(($ultimo_pago_sabado > $ultimo_cierre_caja) && ($row->id_dia_cobranza == 2)){					
+               $semana_sabado = $semana_sabado +1;
+                $monto_abonado_sabado = $row->monto_de_pago_credito + $monto_abonado_sabado;												
+            }			                        
+        }        
 	foreach ($lista->result() as $row) {
 		switch ($row->dia_cobranza) {
 			case 'Miercoles':
-				
-				if(($row->estado_credito==1 || (($row->fecha_fin_credito==$hoy)&&($row->cantidad_cuotas_normal == $row->cantidad_cuotas_real)))){ 
-						
-						if(($row->fecha_fin_credito==$hoy)&&($row->cantidad_cuotas_normal == $row->cantidad_cuotas_real)) $termina_miercoles = 1 + $termina_miercoles;
-						$cantidad_creditos_miercoles = 1 + $cantidad_creditos_miercoles;
-						$saldo_miercoles = $row->monto_cuota + $saldo_miercoles;
-				}
+				$ultimo_pago = date("Y-m-d",strtotime($row->ultimo_pago));
+				if($row->estado_credito==1){
+                                       $cantidad_creditos_miercoles = 1 + $cantidad_creditos_miercoles;
+                                       $saldo_miercoles = $row->monto_cuota + $saldo_miercoles;
+                                }elseif((date("Y-m-d",strtotime($row->ultimo_pago)) >= (date("Y-m-d",strtotime($ultimo_cierre_caja))))) {
+                                       $termina_miercoles = 1 + $termina_miercoles;
+                                       $termina_miercoles_saldo = $termina_miercoles_saldo + $row->monto_cuota;
+                                }
 				if(($row->cantidad_cuotas_real < floor($row->cantidad_cuotas_normal))&&($hoy != $row->fecha_proximo_pago)&&($row->estado_credito==1)){
 					$atraso_miercoles = $atraso_miercoles + 1;
 					$saldo_atraso_miercoles = ((floor($row->cantidad_cuotas_normal)*$row->monto_cuota)-$row->monto_abonado) + $saldo_atraso_miercoles;
 					 
-				} else {
-						if(($hoy == $row->fecha_proximo_pago)&&((floor($row->cantidad_cuotas_normal)-$row->cantidad_cuotas_real) >=2)){
+				} elseif(($hoy == $row->fecha_proximo_pago)&&((floor($row->cantidad_cuotas_normal)-$row->cantidad_cuotas_real) >=2)){
 
 						$atraso_miercoles = $atraso_miercoles + 1;
 						$saldo_atraso_miercoles = ((floor($row->cantidad_cuotas_normal)*$row->monto_cuota)-$row->monto_abonado) + $saldo_atraso_miercoles;
 
-					}
-				}
-				
-				$ultimo_pago = date("Y-m-d",strtotime($row->ultimo_pago));				
-				if(($ultimo_pago > $ultimo_miercoles)){
-					//if(($row->cantidad_cuotas_real) >= (floor($row->cantidad_cuotas_normal))){
-							$semana_miercoles = $semana_miercoles +1;
-							$monto_abonado_miercoles = $row->monto_cuota + $monto_abonado_miercoles;
-					//}	
+					
 				}
 				
 				break;
 			
 			case 'Sabado':
-
-				if(($row->estado_credito==1 || (($row->fecha_fin_credito==$hoy)&&($row->cantidad_cuotas_normal == $row->cantidad_cuotas_real)))){ 
-
-						if(($row->fecha_fin_credito==$hoy)&&($row->cantidad_cuotas_normal == $row->cantidad_cuotas_real)) $termina_sabado = 1 + $termina_sabado;
-						$cantidad_creditos_sabados = 1 + $cantidad_creditos_sabados;
-						$saldo_sabado = $row->monto_cuota + $saldo_sabado;
-
-				}
+                                $ultimo_pago = date("Y-m-d",strtotime($row->ultimo_pago));            
+				if($row->estado_credito==1){
+                                      $cantidad_creditos_sabados = 1 + $cantidad_creditos_sabados;
+                                      $saldo_sabado = $row->monto_cuota + $saldo_sabado;
+                                }elseif((date("Y-m-d",strtotime($row->ultimo_pago)) >= (date("Y-m-d",strtotime($ultimo_cierre_caja))))) {
+                                      $termina_sabado = 1 + $termina_sabado;
+                                      $termina_sabado_saldo = $termina_sabado_saldo + $row->monto_cuota;
+                                }
 				if(($row->cantidad_cuotas_real < floor($row->cantidad_cuotas_normal))&&($hoy != $row->fecha_proximo_pago)&&($row->estado_credito==1)){
 					$atraso_sabado = $atraso_sabado + 1;
 					$saldo_atraso_sabado = ((floor($row->cantidad_cuotas_normal)*$row->monto_cuota)-$row->monto_abonado) + $saldo_atraso_sabado;
-					} else {
-							if(($hoy == $row->fecha_proximo_pago)&&((floor($row->cantidad_cuotas_normal)-$row->cantidad_cuotas_real) >=2)){
-								$atraso_sabado = $atraso_sabado + 1;
-								$saldo_atraso_sabado = ((floor($row->cantidad_cuotas_normal)*$row->monto_cuota)-$row->monto_abonado) + $saldo_atraso_sabado;						
-							}
-
-					}
-				$ultimo_pago_sabado = date("Y-m-d",strtotime($row->ultimo_pago));				
-				if(($ultimo_pago_sabado > $ultimo_sabado)){
-					//if(($row->cantidad_cuotas_real) >= (floor($row->cantidad_cuotas_normal))){
-							$semana_sabado = $semana_sabado +1;
-							$monto_abonado_sabado = $row->monto_cuota + $monto_abonado_sabado;
-							
-					//}	
-				}				
+				} elseif(($hoy == $row->fecha_proximo_pago)&&((floor($row->cantidad_cuotas_normal)-$row->cantidad_cuotas_real) >=2)){
+					$atraso_sabado = $atraso_sabado + 1;
+					$saldo_atraso_sabado = ((floor($row->cantidad_cuotas_normal)*$row->monto_cuota)-$row->monto_abonado) + $saldo_atraso_sabado;						
+				}
+               
 				break;
 		}
-		$cantidad_creditos_totales = $cantidad_creditos_miercoles + $cantidad_creditos_sabados;
-		$semana_total = $semana_miercoles + $semana_sabado;
-		$avance_total = round(($semana_total/$cantidad_creditos_totales),2)*100;
+
+
 	 
 	}
-?>
+        $cantidad_creditos_totales = $saldo_sabado + $saldo_miercoles +$termina_sabado_saldo +$termina_miercoles_saldo;
+	//$semana_total = $monto_abonado_miercoles + $monto_abonado_sabado;
+        foreach ($listar_avance->result() as $row) {
+          $semana_total = $row->avance_cobranza;
+        }
+            $avance_total = round(($semana_total/$cantidad_creditos_totales),2)*100;
+
+        ?>
 		<div class="container">
 			<div class="grid-17">
 				<div class="widget widget-plain">
@@ -134,12 +182,12 @@
 						</div>
 						<div class="dashboard_report defaultState">
 							<div class="pad">
-								<span class="value">$<?php echo $saldo_miercoles; ?></span>Recaudacion normal Esperada
+								<span class="value">$<?php echo $saldo_miercoles + $termina_miercoles_saldo ?></span>Recaudacion normal Esperada
 							</div> <!-- .pad -->
 						</div>
 						<div class="dashboard_report defaultState last">
 							<div class="pad">
-								<span class="value"><?php echo $semana_miercoles - $termina_miercoles; ?> pagos</span>$<?php echo $monto_abonado_miercoles; ?> recaudados desde el <?php echo helper_traducir_fecha($ultimo_miercoles);?>
+								<span class="value"><?php echo $semana_miercoles ; ?> pagos</span>$<?php echo $monto_abonado_miercoles; ?> recaudados desde cierre de caja del <?php echo helper_traducir_fecha($ultimo_miercoles);?>
 							</div> <!-- .pad -->
 						</div>
 					</div> <!-- .widget-content -->
@@ -168,12 +216,12 @@
 						</div>
 						<div class="dashboard_report defaultState">
 							<div class="pad">
-								<span class="value">$<?php echo $saldo_sabado; ?></span>Recaudacion normal Esperada
+								<span class="value">$<?php echo $saldo_sabado + $termina_sabado_saldo; ?></span>Recaudacion normal Esperada
 							</div> <!-- .pad -->
 						</div>
 						<div class="dashboard_report defaultState last">
 							<div class="pad">
-								<span class="value"><?php echo $semana_sabado - $termina_sabado; ?> pagos</span>$<?php echo $monto_abonado_sabado; ?> recaudados desde el <?php echo helper_traducir_fecha($ultimo_sabado);?>
+								<span class="value"><?php echo $semana_sabado; ?> pagos</span>$<?php echo $monto_abonado_sabado; ?> recaudados desde cierre de caja del <?php echo helper_traducir_fecha($ultimo_sabado);?>
 							</div> <!-- .pad -->
 						</div>
 					</div> <!-- .widget-content -->
@@ -182,32 +230,65 @@
 				<div class="widget widget-table">
 					<div class="widget-header">
 						<span class="icon-list"></span>
-						<h3 class="icon aperture">Tables</h3>
+						<h3 class="icon aperture">Grafica de ultimas recaudaciones</h3>
 					</div> <!-- .widget-header -->
-					<div class="widget-content"></div> <!-- .widget-content -->
+                                        <div class="widget-content">
+                                            <table class="stats" data-chart-type="line" data-chart-colors="">
+								
+								 <thead>
+                                                                        <tr>
+                                                                            <td>&nbsp;</td>
+                                                                            <?php foreach ($listar_recaudacion->result() as $row) { ?>
+                                                                            <th><?php echo $row->semana+1;//date("Y-m-d",strtotime($row->fecha_cierre)); ?></th>
+                                                                            <?php } ?>
+									</tr>
+			
+									</thead>
+
+									<tbody>
+                                                                            <tr>
+                                                                            <th>Recaudacion en pesos por semana</th>
+                                                                                <?php foreach ($listar_recaudacion->result() as $row) { ?>
+                                                                                       <td><?php echo $row->recaudacion; ?></td>
+                                                                                <?php } ?>
+                                                                            </tr>
+									</tbody>
+                                                                
+							</table>
+                                        </div> 
+                                        <!-- .widget-content -->
 				</div> <!-- .widget -->	
-			</div> <!-- .grid -->			
+			</div> <!-- .grid -->
 			<div class="grid-7">
 				<div id="gettingStarted" class="box">
 					<h3>Avance de cobranzas semanales</h3>
-					<p>Queda un <?php echo 100 - $avance_total; ?>% del total de créditos para cobrar</p>
+                                        <?php 
+                                        if($avance_total < 70){ 
+                                            $ticket="ticket ticket-important";
+                                        } 
+                                        if($avance_total >= 70 && $avance_total < 90){
+                                            $ticket="ticket ticket-warning";
+                                          }
+                                        if($avance_total > 90){
+                                            $ticket = "ticket ticket-success";
+                                        }
+                                        ?>
+                                        <p>Queda cobrar un <span class="<?php echo $ticket; ?>"><?php echo 100 - $avance_total; ?>%</span> de la recaudacion esperada <span class="ticket ticket-success">($<?php echo $cantidad_creditos_totales; ?>)</span></p>
 					<div class="progress-bar secondary">
 						<div class="bar" style="width: <?php echo $avance_total; ?>%;"><?php echo $avance_total; ?>%</div>
 					</div>
 				</div>
-				<div class="box plain">
-					<a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_creditos/listar_creditos" class="btn btn-primary btn-large dashboard_add">Registrar Pago</a>
-					<a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_creditos/agregar_credito" class="btn btn-tertiary btn-large dashboard_add">Agregar nuevo Crédito</a>
-					<a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_clientes/agregar_cliente" class="btn btn-quaternary btn-large dashboard_add">Agregar nuevo Cliente</a>					
-				</div>
 				<div class="box">
-					<h3>Ultimas Actividades<br> registradasen el sistema</h3>
+					<h3>Ultimos Pagos registrados</h3>
+                                        <?php foreach ($ultimos_pagos->result() as $row) { 
+                                            
+                                            ?>
 					<ul class="bullet secondary">
-						<li>Proximamente</li>
-					</ul>
-					<ul class="bullet primary">
-						<li>Proximamente</li>
-					</ul>
+                                            <ul class="bullet bullet-blue">
+							<li><?php echo $row->nombre_cliente; ?> <?php echo $row->apellido_cliente; ?> pago <span class="ticket ticket-success">$<?php echo $row->monto_de_pago_credito; ?></span> el <?php echo date("Y-m-d",strtotime($row->fecha_de_pago_credito)); ?> <?php if($this->session->userdata('usuario') == "sazubel" ){ ?><a id="boton_borrar" class="boton_borrar" value="<?php echo $row->id_pago_creditos; ?>"><?php echo $row->id_pago_creditos; ?></a><?php } ?></li>
+                                            </ul>
+                                        </ul>
+                                            <?php } ?>
 				</div> <!-- .box -->
 			</div> <!-- .grid -->
 		</div> <!-- .container -->		
