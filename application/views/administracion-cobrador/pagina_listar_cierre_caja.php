@@ -96,17 +96,17 @@ $(document).ready(function(){
 
                           
                         <div class="field-group">
-                        <?php if(isset($cierre_caja['ultimos_pagos'])) {?>
-						<label for="required">Recaudacion a la fecha: $<span class="ticket ticket-success"><?php echo $cierre_caja['ultimos_pagos']; ?></span><i class="fa fa-line-chart fa-lg	"></i></i></label>
-						<?php if(isset($cierre_caja['ultimos_pagos_postcierre'])) { ?>
-                                                <label for="required">Recaudacion a la fecha: $<span class="ticket ticket-success"><?php echo $cierre_caja['ultimos_pagos_postcierre']; ?></span><i class="fa fa-line-chart fa-lg	"></i></i></label>
+                        <?php if(isset($cierre_caja['ultimos_pagos_postcierre'])) {?>
+						<label for="required">Recaudacion Total: $<span class="ticket ticket-success"><?php echo $cierre_caja['ultimos_pagos_postcierre']; ?></span><i class="fa fa-line-chart fa-lg	"></i></i></label>
+						<?php if(isset($cierre_caja['ultimos_pagos_cierre_sabado'])) { ?>
+                                                <label for="required">Ultima recaudacion pendiente sabado pasado: $<span class="ticket ticket-success"><?php echo $cierre_caja['ultimos_pagos_cierre_sabado']; ?></span><i class="fa fa-line-chart fa-lg	"></i></i></label>
                                                 <?php } ?>
                                                 <?php } else { ?> 
 						<label for="required">Recaudacion a la fecha: <span class="ticket ticket-success"><?php echo "SIN COBROS AUN" ?></span> </label>
 						<?php } ?>					
 						<div class="field">
-						<input type="hidden" name="f_var_monto_de_cierre" id="f_var_monto_de_cierre" size="15" class="validate[required]" value="<?php echo $cierre_caja['ultimos_pagos']; ?>" />
-						<input type="hidden" name="f_var_monto_comision" id="f_var_monto_comision" size="15" class="validate[required]" value="<?php echo $cierre_caja['comision']; ?>" />	
+						<input type="hidden" name="f_ultimos_pagos_cierre_sabado" id="ultimos_pagos_cierre_sabado" size="15" class="validate[required]" value="<?php echo $cierre_caja['ultimos_pagos_cierre_sabado']; ?>" />
+						<input type="hidden" name="f_ultimos_comisiones_cierre_sabado" id="ultimos_comisiones_cierre_sabado" size="15" class="validate[required]" value="<?php echo $cierre_caja['ultimos_comisiones_cierre_sabado']; ?>" />	
 						<input type="hidden" name="f_var_monto_de_cierre_postcierre" id="f_var_monto_de_cierre_postcierre" size="15" class="validate[required]" value="<?php echo $cierre_caja['ultimos_pagos_postcierre']; ?>" />
 						<input type="hidden" name="f_var_monto_comision_postcierre" id="f_var_monto_comision_postcierre" size="15" class="validate[required]" value="<?php echo $cierre_caja['comision_postcierre']; ?>" />	
 

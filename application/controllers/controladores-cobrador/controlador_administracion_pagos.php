@@ -205,14 +205,14 @@ public function listar_cierre_caja()
 
 public function ingresar_cierre_caja()
 {	
-				$var_monto_de_cierre = $this -> input -> post('f_var_monto_de_cierre');
-				$var_monto_comision = $this -> input -> post('f_var_monto_comision');
+				$var_ultimos_pagos_cierre_sabado = $this -> input -> post('f_ultimos_pagos_cierre_sabado');
+				$var_ultimos_comisiones_cierre_sabado = $this -> input -> post('f_ultimos_comisiones_cierre_sabado');
 				$var_monto_de_cierre_postcierre = $this -> input -> post('f_var_monto_de_cierre_postcierre');
 				$var_monto_comision_postcierre = $this -> input -> post('f_var_monto_comision_postcierre');
-
+                               
 				$formulario_cierre = array(
-                                'monto_caja'=> $var_monto_de_cierre,
-				'comision_cierre'=> $var_monto_comision,
+                                'monto_caja_sabado'=> $var_ultimos_pagos_cierre_sabado,
+				'comision_cierre_sabado'=> $var_ultimos_comisiones_cierre_sabado,
                                 'monto_caja_postcierre'=> $var_monto_de_cierre_postcierre,
 				'comision_cierre_postcierre'=> $var_monto_comision_postcierre
                                         
