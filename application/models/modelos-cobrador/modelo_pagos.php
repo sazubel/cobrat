@@ -172,8 +172,6 @@ function listar_avance()
             
            $listar_avance = $this->db->query("SELECT sum(tpc.monto_de_pago_credito) as avance_cobranza FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
             WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente and tpc.fecha_de_pago_credito > '".$ultimo_cierre_preciso."' ORDER BY `tpc`.`fecha_de_pago_credito` DESC");
-            echo "SELECT sum(tpc.monto_de_pago_credito) as avance_cobranza FROM tabla_pago_creditos tpc, tabla_creditos tc, tabla_clientes tcl 
-            WHERE tpc.id_credito = tc.id_credito and tc.id_cliente = tcl.id_cliente and tpc.fecha_de_pago_credito > '".$ultimo_cierre_preciso."' ORDER BY `tpc`.`fecha_de_pago_credito` DESC";
            return $listar_avance;
             //$ultimo_cierre = $this->db->query("select max(fecha_cierre) as fecha_cierre from tabla_cierre_caja");
 
@@ -254,6 +252,15 @@ function listar_avance()
                         $ultimas_comisiones_sabado = $sumar_ultimos_pagos_sabado['comision'];
                         $data["cierre_caja"]["ultimos_pagos_cierre_sabado"] =  $ultimos_pagos_sabado;
                         $data["cierre_caja"]["ultimos_comisiones_cierre_sabado"] = $ultimas_comisiones_sabado;
+                     } else {
+                        $sumar_despues_de_cierre = $this->db->query('select sum(monto_de_pago_credito) as ultimos_pagos, sum(pago_comision) as comision FROM tabla_pago_creditos WHERE fecha_de_pago_credito > "'.$ultimo_cierre.'"');
+
+                        foreach ($sumar_despues_de_cierre->result() as $row) {
+                                $ultimos_pagos_resta = $row->ultimos_pagos;
+                                $comision_resta = $row->comision;
+                                $data["cierre_caja"]["ultimos_pagos_postcierre"] = $ultimos_pagos_resta;
+                                $data["cierre_caja"]["comision_postcierre"] = $comision_resta;
+                        }
                      }
 //exit();
                     /*

@@ -105,9 +105,11 @@ $(document).ready(function(){
 						<label for="required">Recaudacion a la fecha: <span class="ticket ticket-success"><?php echo "SIN COBROS AUN" ?></span> </label>
 						<?php } ?>					
 						<div class="field">
+                                                    <?php if(isset($cierre_caja['ultimos_pagos_cierre_sabado'])) { ?>
 						<input type="hidden" name="f_ultimos_pagos_cierre_sabado" id="ultimos_pagos_cierre_sabado" size="15" class="validate[required]" value="<?php echo $cierre_caja['ultimos_pagos_cierre_sabado']; ?>" />
 						<input type="hidden" name="f_ultimos_comisiones_cierre_sabado" id="ultimos_comisiones_cierre_sabado" size="15" class="validate[required]" value="<?php echo $cierre_caja['ultimos_comisiones_cierre_sabado']; ?>" />	
-						<input type="hidden" name="f_var_monto_de_cierre_postcierre" id="f_var_monto_de_cierre_postcierre" size="15" class="validate[required]" value="<?php echo $cierre_caja['ultimos_pagos_postcierre']; ?>" />
+						<?php } ?>
+                                                <input type="hidden" name="f_var_monto_de_cierre_postcierre" id="f_var_monto_de_cierre_postcierre" size="15" class="validate[required]" value="<?php echo $cierre_caja['ultimos_pagos_postcierre']; ?>" />
 						<input type="hidden" name="f_var_monto_comision_postcierre" id="f_var_monto_comision_postcierre" size="15" class="validate[required]" value="<?php echo $cierre_caja['comision_postcierre']; ?>" />	
 
                                                 </div>
