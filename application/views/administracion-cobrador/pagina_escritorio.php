@@ -39,6 +39,7 @@
 		</div> <!-- #contentHeader -->	
 <?php 
 	$saldo_sabado = 0;
+        $avance_total = 0;
 	$saldo_miercoles = 0;
 	$atraso_miercoles = 0;
 	$atraso_sabado = 0;
@@ -151,8 +152,9 @@
         foreach ($listar_avance->result() as $row) {
           $semana_total = $row->avance_cobranza;
         }
+        if($cantidad_creditos_totales >0){
             $avance_total = round(($semana_total/$cantidad_creditos_totales),2)*100;
-
+        }
         ?>
 		<div class="container">
 			<div class="grid-17">

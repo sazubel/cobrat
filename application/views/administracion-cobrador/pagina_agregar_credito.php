@@ -26,105 +26,60 @@ $(document).ready(function() {
 			}
 	});
 	$( "#f_var_monto_prestamo" ).change(function() {
-			var monto_cuota;
-			if($("#f_var_cant_cuotas").val() != ''){
-				if($("#f_var_cant_cuotas").val() > 13){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.92)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					//$("#f_monto_cuota").html('');
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
+            $('#f_var_cant_cuotas_men').find('option:first').attr('selected', 'selected').parent('select');
+            $('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
+            $('#f_var_cant_cuotas_qui').find('option:first').attr('selected', 'selected').parent('select');
+            $("#f_monto_cuota").html('');
 
-
-				} else if($("#f_var_cant_cuotas").val() > 6){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.69)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					//$("#f_monto_cuota").html('');
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-				} else {
-					if($("#f_var_monto_prestamo").val() <= 1000){
-
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.5)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					//$("#f_monto_cuota").html('');
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					} else {
-
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.32)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);	
-					//$("#f_monto_cuota").html('');
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					}
-
-				}
-			}
 	});
-	/*
-	$( "#f_var_monto_prestamo" ).blur(function() {
-			var monto_cuota;
-			if($("#f_var_cant_cuotas").val() != ''){
-				if($("#f_var_cant_cuotas").val() > 13){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.92)/$("#f_var_cant_cuotas").val());
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					$("#f_var_cant_cuotas").val('');
-					$("#f_monto_cuota").html('');
-					
 
-				} else if($("#f_var_cant_cuotas").val() >= 6){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.69)/$("#f_var_cant_cuotas").val());
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					$("#f_monto_cuota").html('');
-					
-				} else {
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.32)/$("#f_var_cant_cuotas").val());
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);	
-					$("#f_monto_cuota").html('');
-				}
-			}
-			
-	});*/
-			var $tipo = $('#f_var_tipo_credito'), $cuota_semanal = $('#f_var_cant_cuotas_sem'), $cuota_quincenal = $('#f_var_cant_cuotas_qui') ;
+			var $tipo = $('#f_var_tipo_credito');
 
 			$tipo.change(function () {
 				if ($tipo.val() == '') {
+                                        $("#f_monto_cuota").html("");
 					$("#combo_cuotas_sem").hide();
 					$("#combo_cuotas_qui").hide();
+					$("#combo_cuotas_men").hide();
 					$("#text_cuotas_manual").hide();
 					$("#boton_cuotas_manual").hide();
 					$("#boton_cuotas_auto").hide();
 					$("#f_var_monto_prestamo").hide();
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					$('#f_var_cant_cuotas_qui').find('option:first').attr('selected', 'selected').parent('select');
+					$('#f_var_cant_cuotas_sem').prop('selectedIndex',0);
 				}					
 
 				if ($tipo.val() == '1') {
+                                        $("#f_monto_cuota").html("");
 					$("#combo_cuotas_sem").show();
 					$("#combo_cuotas_qui").hide();
+					$("#combo_cuotas_men").hide();
 					$("#f_var_monto_prestamo").show();
 					$("#boton_cuotas_manual").show();
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					$('#f_var_cant_cuotas_qui').find('option:first').attr('selected', 'selected').parent('select');
-
+                                        $('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
 				}
 				if ($tipo.val() == '2') {
+                                        $("#f_monto_cuota").html("");
 					$("#combo_cuotas_sem").hide();
 					$("#combo_cuotas_qui").show();
+					$("#combo_cuotas_men").hide();
 					$("#boton_cuotas_manual").hide();
 					$("#text_cuotas_manual").hide();
 					$("#boton_cuotas_auto").hide();
 					$("#f_var_monto_prestamo").show();
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					$('#f_var_cant_cuotas_qui').find('option:first').attr('selected', 'selected').parent('select');
+                                        $('#f_var_cant_cuotas_qui').prop('selectedIndex',0);
+				}
+
+				if ($tipo.val() == '3') {
+                                        $("#f_monto_cuota").html("");
+					$("#combo_cuotas_sem").hide();
+					$("#combo_cuotas_qui").hide();
+					$("#combo_cuotas_men").show();
+					$("#text_cuotas_manual").hide();
+					$("#boton_cuotas_manual").hide();
+					$("#boton_cuotas_auto").hide();
+					$("#f_var_monto_prestamo").show();
+                                        $('#f_var_cant_cuotas_men').prop('selectedIndex',0);
+                                        
 				}
 
 			}).trigger('change');
@@ -135,13 +90,14 @@ $(document).ready(function() {
 			}
 	});
 
-
+/*
 	$( "#f_var_cant_cuotas" ).focus(function() {
 			$("#combo_cuotas_sem").hide();			
 			$("#boton_cuotas_auto").show();
+                        $("#boton_cuotas_manual").hide();
 
 	});
-
+*/
 	$( "#boton_cuotas_auto" ).click(function() {
 			$("#combo_cuotas_sem").show();			
 			$("#text_cuotas_manual").hide();
@@ -158,154 +114,64 @@ $(document).ready(function() {
 			$("#f_var_cant_cuotas").val('');
 			$("#f_monto_cuota").html('');
 	});
-
-
-	$( "#f_var_cant_cuotas" ).change(function() {
-			var monto_cuota;
-			if($("#f_var_monto_prestamo").val() != ''){
-				if($("#f_var_cant_cuotas").val() > 13){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.92)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					$("#combo_cuotas_sem").hide();
-
-
-				} else if($("#f_var_cant_cuotas").val() > 6){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.69)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					$("#combo_cuotas_sem").hide();
-
-
-				} else {
-					if($("#f_var_monto_prestamo").val() <= 1000){
-
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.5)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					//$("#f_monto_cuota").html('');
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					} else {
-
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.32)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);	
-					//$("#f_monto_cuota").html('');
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					}
-
-				}
-			} else {
-				$("#error-completar-monto-credito").dialog("open");				
-				$('#f_var_cant_cuotas').find('option:first').attr('selected', 'selected').parent('select');
-				$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-				$('#f_var_cant_cuotas_qui').find('option:first').attr('selected', 'selected').parent('select');
-
-			}
-	});
-
-
-
-	$( "#f_var_cant_cuotas_sem" ).change(function() {
-			var monto_cuota;
-		if($("#f_var_cant_cuotas_sem").val() != ''){	
-			if($("#f_var_monto_prestamo").val() != ''){
-				if($("#f_var_cant_cuotas_sem").val() > 13){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.92)/$("#f_var_cant_cuotas_sem").val());
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					$("#boton_cuotas_manual").show();
-					$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_sem").val());
-
-				} else if($("#f_var_cant_cuotas_sem").val() > 9){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.69)/$("#f_var_cant_cuotas_sem").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_sem").val());
-
-				} else {
-					if($("#f_var_cant_cuotas_sem").val() > 6){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.45)/$("#f_var_cant_cuotas_sem").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_sem").val());
-					} else {
-						if(($("#f_var_monto_prestamo").val() <= 1000)&&($("#f_var_cant_cuotas_sem").val() > 4)){
-
-							monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.5)/$("#f_var_cant_cuotas_sem").val());
-							monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-							$("#f_monto_cuota").html("$"+monto_cuota);
-							$("#f_var_monto_cuota").val(monto_cuota);
-							$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_sem").val());
-						///$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-
-						} else {
-							monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.26)/$("#f_var_cant_cuotas_sem").val());
-							monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-							$("#f_monto_cuota").html("$"+monto_cuota);
-							$("#f_var_monto_cuota").val(monto_cuota);
-							$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_sem").val());
-						}					
-					}	
-					//$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-
-				}
-
-			} else {
-				$("#error-completar-monto-credito").dialog("open");				
-				$('#f_var_cant_cuotas').find('option:first').attr('selected', 'selected').parent('select');
-				$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-				$('#f_var_cant_cuotas_qui').find('option:first').attr('selected', 'selected').parent('select');
-
-			}
-		} else {
-			$("#f_monto_cuota").html("");
-		}
-	});
 	  
- 	$( "#f_var_cant_cuotas_qui" ).change(function() {
+	$("#f_var_cant_cuotas_qui" ).change(function() {
 			var monto_cuota;
 			$("#text_cuotas_manual").hide();
 			$("#boton_cuotas_manual").hide();
 			$("#boton_cuotas_auto").hide();
+                        $("#f_monto_cuota").html("");
 			if($("#f_var_monto_prestamo").val() != ''){
-				if($("#f_var_cant_cuotas_qui").val() > 6){
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.92)/$("#f_var_cant_cuotas_qui").val());
+					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*$("#f_var_cant_cuotas_qui").val()));
+                                        monto_cuota	= Math.ceil((monto_cuota)/10)*10;
 					$("#f_monto_cuota").html("$"+monto_cuota);
 					$("#f_var_monto_cuota").val(monto_cuota);
-					$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_qui").val());
+					$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_qui option:selected").text());
 
-				} else {
-					if($("#f_var_monto_prestamo").val() == 1000){
-
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.5)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);
-					//$("#f_monto_cuota").html('');
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					} else {
-
-					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*1.32)/$("#f_var_cant_cuotas").val());
-					monto_cuota	= Math.ceil((monto_cuota)/10)*10;
-					$("#f_monto_cuota").html("$"+monto_cuota);
-					$("#f_var_monto_cuota").val(monto_cuota);	
-					//$("#f_monto_cuota").html('');
-					$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-					}
-
-				}
 			} else {
-				$("#error-completar-monto-credito").dialog("open");	
-				$('#f_var_cant_cuotas').find('option:first').attr('selected', 'selected').parent('select');
-				$('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
-				$('#f_var_cant_cuotas_qui').find('option:first').attr('selected', 'selected').parent('select');
+				$("#error-completar-monto-credito").dialog("open");
+                                $('#f_var_cant_cuotas_qui').find('option:first').attr('selected', 'selected').parent('select');
+
+			}
+	});
+        
+	$( "#f_var_cant_cuotas_sem" ).change(function() {
+			var monto_cuota;
+			$("#text_cuotas_manual").hide();
+			$("#boton_cuotas_manual").hide();
+			$("#boton_cuotas_auto").hide();
+                        $("#f_monto_cuota").html("");
+			if($("#f_var_monto_prestamo").val() != ''){
+					monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*$("#f_var_cant_cuotas_sem").val()));
+                                        monto_cuota	= Math.ceil((monto_cuota)/10)*10;
+					$("#f_monto_cuota").html("$"+monto_cuota);
+					$("#f_var_monto_cuota").val(monto_cuota);
+					$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_sem option:selected").text());
+
+			} else {
+				$("#error-completar-monto-credito").dialog("open");				
+                                $('#f_var_cant_cuotas_sem').find('option:first').attr('selected', 'selected').parent('select');
+
+			}
+	});        
+
+	$( "#f_var_cant_cuotas_men" ).change(function() {
+			var monto_cuota;
+			$("#text_cuotas_manual").hide();
+			$("#boton_cuotas_manual").hide();
+			$("#boton_cuotas_auto").hide();
+                        $("#f_monto_cuota").html("");
+			if($("#f_var_monto_prestamo").val() != ''){
+				monto_cuota = Math.ceil(($("#f_var_monto_prestamo").val()*$("#f_var_cant_cuotas_men").val()));
+                                monto_cuota	= Math.ceil((monto_cuota)/10)*10;
+				$("#f_monto_cuota").html("$"+monto_cuota);
+				$("#f_var_monto_cuota").val(monto_cuota);
+				$("#f_var_cant_cuotas").val($("#f_var_cant_cuotas_men option:selected").text());
+
+			} else {
+				$("#error-completar-monto-credito").dialog("open");				
+                                $('#f_var_cant_cuotas_men').find('option:first').attr('selected', 'selected').parent('select');                                  
+
 			}
 	});
 
@@ -454,7 +320,7 @@ $(document).ready(function() {
 							<h3>Formulario Nuevo Crédito</h3>
 							<?php 
 							echo form_error('f_var_id_cliente');
-							echo form_error('f_var_tipo_credito');
+                                                    echo form_error('f_var_tipo_credito');
 							echo form_error('f_var_cant_cuotas');
 							echo form_error('f_var_monto_cuota');
 							echo form_error('f_var_monto_prestamo');
@@ -477,33 +343,29 @@ echo form_open('controladores-cobrador/controlador_administracion_creditos/agreg
 
 
 
-<div class="field-group">
-		                             <?php if($this->session->userdata('usuario') == "sazubel" ){ ?>
-									
-									<label>Escriba nombre del Cliente al que se asignará el crédito</label>
-									<div class="field"> 
-			<input type="text" name="f_var_nombre_cliente" id="f_var_nombre_cliente" size="35" class="validate[required,minSize[3]]" value="<?php echo set_value('f_var_nombre_cliente');?>">										
-			<input type="hidden" name="f_var_id_cliente" id="f_var_id_cliente" size="35" class="validate[required,minSize[3]]" value="<?php echo set_value('f_var_id_cliente');?>">										
+                                                                <div class="form-group col-lg-40">
+                                                                    <?php if($this->session->userdata('usuario') == "sazubel" ){ ?>
+                                                                            <label>Escriba nombre del Cliente al que se asignará el crédito</label>
+                                                                            <div class="field"> 
+                                                                                <input type="text" name="f_var_nombre_cliente" id="f_var_nombre_cliente" size="35" class="validate[required,minSize[3]]" value="<?php echo set_value('f_var_nombre_cliente');?> ">										
+                                                                                <input type="hidden" name="f_var_id_cliente" id="f_var_id_cliente" size="35" class="validate[required,minSize[3]]" value="<?php echo set_value('f_var_id_cliente');?>">										
+                                                                            </div>
 
-									</div>
-                                    <?php } ?>
+                                                                    <?php } ?>
 								</div> <!-- .field-group -->
-                                
-
+                                                                        
 
 <div class="field-group">
-									<label>Elija la zona y el cobrado</label>
+									<label>Elija el cobrador</label>
 									<div class="field">
 										<?php
 										/*COMBO DE ZONAS DINAMICO*/
-										//$combo = $this->db->get('tabla_zona_de_cobros');
-		                                
-
-											$combo = $this->db->get_where('tabla_zona_de_cobros', array('id_zona_de_cobros' => 2));
-										echo ("<select class='validate[required]' name='f_var_id_zona_cobros' id='f_var_id_zona_cobros'>");
+										$combo = $this->db->get('tabla_usuarios');
+											//$combo = $this->db->get_where('tabla_zona_de_cobros', array('id_zona_de_cobros' => 3));
+										echo ("<select class='validate[required]' name='f_var_id_cobrador' id='f_var_id_cobrador'>");
 										//echo ("<option value='0'>No especificar</option>");
 										foreach ($combo->result() as $row) 
-											{ echo ("<option class='validate[required]' value=$row->id_zona_de_cobros> $row->zona_de_cobros</option>");}
+											{ echo ("<option class='validate[required]' value=$row->id_usuario> $row->nombre $row->apellido</option>");}
 										echo ("</select>");
 										
 
@@ -519,7 +381,7 @@ echo form_open('controladores-cobrador/controlador_administracion_creditos/agreg
 										/*COMBO DE ZONAS DINAMICO*/
 										if($this->session->userdata('usuario') == "sazubel" ){
 										echo ("<select class='validate[required]' name='f_var_tipo_credito' id='f_var_tipo_credito'>");
-										echo ("<option value=''>Elija un tipo</option>");
+										echo ("<option value='' selected>Elija un tipo</option>");
 										//echo ("<option value='0'>No especificar</option>");
 										foreach ($tipos_de_creditos->result() as $row) 
 											{ echo ("<option class='validate[required]' value=$row->id_creditos_tipos> $row->tipos_de_creditos</option>");}
@@ -533,14 +395,14 @@ echo form_open('controladores-cobrador/controlador_administracion_creditos/agreg
 										?> 
 									</div>
 								</div> <!-- .field-group -->
-		                            <?php if($this->session->userdata('usuario') == "sazubel" ){ ?>
+                                                                <?php if($this->session->userdata('usuario') == "sazubel" ){ ?>
 									<label>Elija el dia de cobranza</label>
 									<div class="field">
 										<?php
 										/*COMBO DE ZONAS DINAMICO*/
 										$combo = $this->db->get('tabla_dia_cobranza');
 										echo ("<select class='validate[required]' name='f_var_id_dia_cobranza' id='f_var_id_dia_cobranza'>");
-										echo ("<option value=''>Elija un dia</option>");
+										echo ("<option value='' selected>Elija un dia</option>");
 										//echo ("<option value='0'>No especificar</option>");
 										foreach ($combo->result() as $row) 
 											{ echo ("<option value=$row->id_dia_cobranza> $row->dia </option>");}
@@ -559,24 +421,67 @@ echo form_open('controladores-cobrador/controlador_administracion_creditos/agreg
                                 
 <div class="field-group">
 									<label for="required">Cantidad de Cuotas del Crédito:</label>
-									<div id="combo_cuotas_sem" class="field">
-                                      <select style="width:auto" name="f_var_cant_cuotas_sem" id="f_var_cant_cuotas_sem" class="validate[required]">
-                                      	<option value="">Elija cuota</option>
-                                      	<option value="24">24</option>
-                                      	<option value="13">13</option>
-                                      	<option value="9">9</option>
-                                      	<option value="6">6</option>
-                                      	<option value="4">4</option>
-                                      </select>
-                                    </div>
+
 									<div id="combo_cuotas_qui" class="field">
-                                      <select style="width:auto" name="f_var_cant_cuotas_qui" id="f_var_cant_cuotas_qui" class="validate[required]">
-                                      	<option value="">Elija cuota</option>
-                                      	<option value="12">12</option>
-                                      	<option value="6">6</option>
-                                      </select>
+										<?php
+										/*COMBO DE ZONAS DINAMICO*/
+										//$combo = $this->db->get('tabla_cuota_porcentaje');
+                                                                                $combo = $this->db->order_by('cuota', 'asc');
+                                                                                $combo = $this->db->get_where('tabla_cuota_porcentaje', array('tipo_cuota' => 3));
+										echo ("<select class='validate[required]' name='f_var_cant_cuotas_qui' id='f_var_cant_cuotas_qui'>");
+										//echo ("<option value='0'>No especificar</option>");
+										echo ("<option value='' selected>Elija un tipo</option>");
+                                                                                foreach ($combo->result() as $row) 
+											{ 
+                                                                                            $porcentaje_cuota = round($row->porcentaje/$row->cuota,2);
+                                                                                            echo ("<option class='validate[required]' value=$porcentaje_cuota>$row->cuota</option>");
+                                                                                            
+                                                                                        }
+										echo ("</select>");
+										?>
 									</div>
 
+									<div id="combo_cuotas_sem" class="field">
+                                                                            
+										<?php
+										/*COMBO DE ZONAS DINAMICO*/
+										//$combo = $this->db->get('tabla_cuota_porcentaje');
+                                                                                $combo = $this->db->order_by('cuota', 'asc');
+                                                                                $combo = $this->db->get_where('tabla_cuota_porcentaje', array('tipo_cuota' => 2));
+										echo ("<select class='validate[required]' name='f_var_cant_cuotas_sem' id='f_var_cant_cuotas_sem'>");
+										//echo ("<option value='0'>No especificar</option>");
+										echo ("<option value='' selected>Elija un tipo</option>");
+                                                                                foreach ($combo->result() as $row) 
+											{ 
+                                                                                            $porcentaje_cuota = round($row->porcentaje/$row->cuota,2);
+                                                                                            echo ("<option class='validate[required]' value=$porcentaje_cuota>$row->cuota</option>");
+                                                                                            
+                                                                                        }
+										echo ("</select>");
+										?>  
+
+									</div>                                                                         
+									<div id="combo_cuotas_men" class="field">
+                                                                            
+										<?php
+										/*COMBO DE ZONAS DINAMICO*/
+										//$combo = $this->db->get('tabla_cuota_porcentaje');
+                                                                                $combo = $this->db->order_by('cuota', 'asc');
+                                                                                $combo = $this->db->get_where('tabla_cuota_porcentaje', array('tipo_cuota' => 1));
+										echo ("<select class='validate[required]' name='f_var_cant_cuotas_men' id='f_var_cant_cuotas_men'>");
+										//echo ("<option value='0'>No especificar</option>");
+										echo ("<option value='' selected>Elija un tipo</option>");
+                                                                                foreach ($combo->result() as $row) 
+											{ 
+                                                                                            $porcentaje_cuota = round($row->porcentaje/$row->cuota,2);
+                                                                                            echo ("<option class='validate[required]' value=$porcentaje_cuota>$row->cuota</option>");
+                                                                                            
+                                                                                        }
+										echo ("</select>");
+										?>  
+
+									</div>                                                                        
+                                                                        
                                     <div id="text_cuotas_manual" class="field">
                                     <label for="required">Valor cuota manual:</label>
 									<input type="text" name="f_var_cant_cuotas" id="f_var_cant_cuotas" size="2" class="validate[required]" />	
@@ -616,7 +521,7 @@ echo form_open('controladores-cobrador/controlador_administracion_creditos/agreg
 								</div>   
 
                                 
-<div class="field-group">
+                                                                <div class="field-group">
 								</div> <!-- .field-group -->
             </div>
 

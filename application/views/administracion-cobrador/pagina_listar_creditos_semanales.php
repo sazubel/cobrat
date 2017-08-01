@@ -43,7 +43,7 @@
 					
 						<div class="widget-header">
 							<span class="icon-list"></span>
-							<h3 class="icon chart">Lista de Creditos</h3>
+							<h3 class="icon chart">Lista de Creditos Totales</h3>
 						</div>
 						<div class="widget-content">
 							
@@ -69,10 +69,16 @@
     <?php
 foreach ($lista->result() as $row) {
 	if($row->dia_cobranza == "Miercoles"){
+        $id_cobrador = $row->id_usuario;
 	$saldo_efectivo = ($row->cantidad_cuotas*$row->monto_cuota) - $row->monto_abonado; 
 	$saldo_cuotas = ($row->cantidad_cuotas- $row->cantidad_cuotas_real);
 	$atraso = ($row->cantidad_cuotas_normal - $row->cantidad_cuotas_real);
-	$saldo_incompleto = ($row->monto_cuota*floor($row->cantidad_cuotas_normal)) - $row->monto_abonado;
+	$saldo_incompleto = ($row->monto_cuota*floor($row->cantidad_cuotas_normal)) - $row->monto_abonado;        
+        if($atraso>$row->cantidad_cuotas){
+            $atraso = $row->cantidad_cuotas - $row->cantidad_cuotas_real;
+            $saldo_incompleto = ($row->monto_cuota*floor($row->cantidad_cuotas)) - $row->monto_abonado;
+
+        }        
 	$saldo_cuota = $saldo_incompleto/$row->monto_cuota;
 
 ?>
@@ -104,16 +110,38 @@ foreach ($lista->result() as $row) {
 						else {
 							echo "<span class='ticket ticket-success'>Al dia</span><i class='fa fa-smile-o excelente'></i>";
 						}
-				} 
-				if ($atraso > 1) { 
-					$saldo_cuota = floor($atraso) - $saldo_cuota;
-					if($saldo_cuota == 0){
-					echo "<span class='ticket ticket-important'>Debe ".floor($atraso)."</span>";
-					if($atraso >= 2) { echo "<i class='fa fa-frown-o deudor'></i>"; } else { echo "<i class='fa fa-meh-o regular'></i>";}
-					}else{
-					$saldo_incompleto = $saldo_incompleto -(floor($atraso)*$row->monto_cuota);
-					echo "<span class='ticket ticket-important'>Atraso ".floor($atraso)." cuot  y $".$saldo_incompleto."</span>";
-					}
+				}                                
+				if ($atraso > 1) {
+                                    if ($atraso > $row->cantidad_cuotas){
+                                        $atraso = $row->cantidad_cuotas - $row->cantidad_cuotas_real;
+                                        $saldo_incompleto = ($row->monto_cuota*floor($row->cantidad_cuotas)) - $row->monto_abonado;
+                                        $tiempo_vencido = abs($row->semanas_restantes);
+                                        $años = intval($tiempo_vencido / 52);
+                                        $meses = $tiempo_vencido % 12;
+
+                                        if($años)
+                                        {
+                                            printf("%d años", $años);
+                                        }
+                                        if($meses)
+                                        {
+                                            if($años)
+                                            {
+                                                printf(" and ");
+                                            }
+                                            printf("%d meses", $meses);
+                                        }
+                                        echo "<span class='ticket ticket-important'>VENCIDO hace ".$años." semanas</span>";
+                                    }else{ 
+                                        $saldo_cuota = floor($atraso) - $saldo_cuota;
+                                        if($saldo_cuota == 0){
+                                        echo "<span class='ticket ticket-important'>Debe ".floor($atraso)."</span>";
+                                        if($atraso >= 2) { echo "<i class='fa fa-frown-o deudor'></i>"; } else { echo "<i class='fa fa-meh-o regular'></i>";}
+                                        }else{
+                                        $saldo_incompleto = $saldo_incompleto -(floor($atraso)*$row->monto_cuota);
+                                        echo "<span class='ticket ticket-important'>Atraso ".floor($atraso)." cuot  y $".$saldo_incompleto."</span>";
+                                        }
+                                    }
 				}
 			}
 
@@ -168,8 +196,8 @@ foreach ($lista->result() as $row) {
 	if($row->dia_cobranza == "Sabado"){
 	$saldo_efectivo = ($row->cantidad_cuotas*$row->monto_cuota) - $row->monto_abonado; 
 	$saldo_cuotas = ($row->cantidad_cuotas- $row->cantidad_cuotas_real);
-	$atraso = ($row->cantidad_cuotas_normal - $row->cantidad_cuotas_real);
-	$saldo_incompleto = ($row->monto_cuota*floor($row->cantidad_cuotas_normal)) - $row->monto_abonado;
+	$atraso = ($row->cantidad_cuotas_normal - $row->cantidad_cuotas_real);        
+	$saldo_incompleto = ($row->monto_cuota*floor($row->cantidad_cuotas_normal)) - $row->monto_abonado;       
 	$saldo_cuota = $saldo_incompleto/$row->monto_cuota;
 
 ?>
@@ -202,18 +230,29 @@ foreach ($lista->result() as $row) {
 					else {
 						echo "<span class='ticket ticket-success'>Al dia</span><i class='fa fa-smile-o excelente'></i>";
 					}
-			} 
-			if ($atraso > 1) { 
-				$saldo_cuota = floor($atraso) - $saldo_cuota;
-				if($saldo_cuota == 0){
-				echo "<span class='ticket ticket-important'>Atraso ".floor($atraso)."</span>"; 
-				if($atraso >= 2) { echo "<i class='fa fa-frown-o deudor'></i>"; } else { echo "<i class='fa fa-meh-o regular'></i>";}
-
-				}else{
-				$saldo_incompleto = $saldo_incompleto -(floor($atraso)*$row->monto_cuota);
-				echo "<span class='ticket ticket-important'>Atraso ".floor($atraso)." cuot  y $".$saldo_incompleto."</span>";
-				}
-			}
+			}                       
+                        if ($atraso > 1) {
+                                if ($atraso > $row->cantidad_cuotas){
+                                    $atraso = $row->cantidad_cuotas - $row->cantidad_cuotas_real;
+                                    $saldo_incompleto = ($row->monto_cuota*floor($row->cantidad_cuotas)) - $row->monto_abonado;
+                                        $tiempo_vencido = abs($row->semanas_restantes);
+                                        $años_ = $tiempo_vencido / 52;
+                                        $meses=$años_-intval($años_);
+                                        $años = intval($años_);
+                                        $meses = intval($meses*12);
+                                   
+                                    echo "<span class='ticket ticket-important'>VENCIDO hace ".$años." año/s y ".$meses." meses </span>";
+                                }else{ 
+                                    $saldo_cuota = floor($atraso) - $saldo_cuota;
+                                    if($saldo_cuota == 0){
+                                    echo "<span class='ticket ticket-important'>Debe ".floor($atraso)."</span>";
+                                    if($atraso >= 2) { echo "<i class='fa fa-frown-o deudor'></i>"; } else { echo "<i class='fa fa-meh-o regular'></i>";}
+                                    }else{
+                                    $saldo_incompleto = $saldo_incompleto -(floor($atraso)*$row->monto_cuota);
+                                    echo "<span class='ticket ticket-important'>Atraso ".floor($atraso)." cuot  y $".$saldo_incompleto."</span>";
+                                    }
+                                }
+                        }
 		}
 		?>
     </td>
@@ -246,11 +285,19 @@ foreach ($lista->result() as $row) {
 ?> 
 	</tbody>
 </table>
+                                            
+                                            
 					</div>
 				</div>
-			</div>						</div> <!-- .widget-content -->
+			</div>						
+                                                </div> <!-- .widget-content -->
 				</div>
-			</div> <!-- .grid -->			
+			</div> <!-- .grid -->
+                        <?php if(ISSET($id_cobrador)){ ?>
+                        <div class="grid-7">
+                            <a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_pagos/listar_cierre_caja_usuario/<?php echo $id_cobrador; ?>" class="btn btn-primary btn-xlarge block">IR A CAJA</a>
+			</div>
+                        <?php } ?>
 		</div> <!-- .container -->
 		
 	</div> <!-- #content -->

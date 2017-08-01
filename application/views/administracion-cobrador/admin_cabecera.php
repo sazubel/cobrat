@@ -4,7 +4,11 @@
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-<?php ini_set ('display_errors', '1'); ?>
+    <?php if($this->session->userdata('permiso_usuario') == "" ){
+        redirect('/controladores-login/controlador_login');
+    }
+    ?>    
+    <?php ini_set ('display_errors', '1'); ?>
 	<title><?php echo $titulo_pagina ?></title>
 	<meta charset="utf-8" />
 	<meta name="description" content="" />
@@ -13,3 +17,5 @@
 	<link rel="stylesheet" href="<?php  echo  base_url();?>stylesheets/all.css" type="text/css" />
 	<link rel="stylesheet" href="<?php  echo  base_url();?>stylesheets/font-awesome.css">
 	</head>
+        
+      

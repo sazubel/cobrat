@@ -61,7 +61,7 @@ $(document).ready(function(){
              <div class="widget widget-tabs">
 			
 					<div class="widget-header">
-						<h3 class="icon aperture">Tarjeta Crediticia</h3>
+						<h3 class="icon aperture">Cobrador: <?php echo $credito['nombre_cobrador']." ".$credito['apellido_cobrador'] ?></h3>
 							
 						<ul class="tabs right">	
 							<li class="active"><a href="#tab-1">Detalles del Crédito</a></li>	
@@ -80,26 +80,38 @@ $(document).ready(function(){
 								<td><h3><?php echo "<span class='ticket ticket-info'>".$credito['fecha_entrega_del_bien']."</span>" ?></h3></td>
 							</tr>
 							<tr>
-								<td><a id="north-west" href="#" title="This is an example of north-west gravity">Fecha de fin del credito:</a></td>
-								<td><h3><?php echo "<span class='ticket ticket-info'>".$credito['fecha_fin_credito']." Semanas restantes ".floor($credito['semanas_restantes'])."</span>" ?></h3></td>
+								<td><a id="north-west" href="#" title="">Fecha de fin del credito:</a></td>
+								<td>
+                                                                    <?php if($credito['cantidad_cuotas_normal'] < $credito['cantidadcuotas']){?>
+                                                                    <h3><?php echo "<span class='ticket ticket-info'>".$credito['fecha_fin_credito']." Semanas restantes ".floor($credito['semanas_restantes'])."</span>" ?></h3>
+                                                                    <?php } else { ?>
+                                                                    <h3><?php echo "<span class='ticket ticket-danger'>VENCIDO HACE ".floor(abs($credito['semanas_restantes']))." SEMANAS</span>" ?></h3>
+                                                                    <?php } ?>
+                                                                </td>
 							</tr>
 							<tr class="odd gradeA">
 								<td>Tipo de credito:</td>
-								<td><h3><?php echo "<span class='ticket ticket-info'>".$credito['tipocredito']." ".$credito['dia_cobranza']."</span>" ?></h3></td>
+								<td><h3><?php echo "<span class='ticket ticket-info'>".$credito['tipocredito']." ".$credito['dia_cobranza']." en ".$credito['cantidadcuotas']." cuotas de $".$credito['montocuota']."</span>" ?></h3></td>
 							</tr>
 							<tr class="even gradeA">
 								<td>Cuotas pactadas a la fecha: </td>
 								<td>
-								<h3><?php echo "<span class='ticket ticket-info'>".floor($credito['cantidad_cuotas_normal'])." de $".$credito['montocuota']." Total $".floor($credito['cantidad_cuotas_normal'])*$credito['montocuota']."</span>" ?></h3></td>
+                                                                <?php if($credito['cantidad_cuotas_normal'] > $credito['cantidadcuotas']){?>
+								<h3><?php echo "<span class='ticket ticket-warning'>CREDITO VENCIDO</span>" ?></h3>
+                                                                <?php } else { ?>
+								<h3><?php echo "<span class='ticket ticket-info'>".floor($credito['cantidad_cuotas_normal'])." de $".$credito['montocuota']." Total $".floor($credito['cantidad_cuotas_normal'])*$credito['montocuota']."</span>" ?></h3>
+                                                                <?php } ?>
+                                                                </td>
 							</tr>							<tr class="even gradeA">
 								<td>Cuotas cumplidas a la fecha: </td>
-								<td><h3><?php 
+								<td>
+                                                                    <h3><?php 
 									if($credito['cantidad_cuotas_real'] < $credito['cantidad_cuotas_normal']){
 									echo "<span class='ticket ticket-info'>". $credito['cantidad_cuotas_real']." de $".$credito['montocuota']." Total $".$credito['cantidad_cuotas_real']*$credito['montocuota']."</span>" ;
 									}else{
 									echo "<span class='ticket ticket-error'>". $credito['cantidad_cuotas_real']." de $".$credito['montocuota']." Total $".$credito['cantidad_cuotas_real']*$credito['montocuota']."</span>"; 
 									}?>
-									</h3>
+                                                                    </h3>
 								</td>
 							</tr>							
 						</tbody>
@@ -177,8 +189,8 @@ $(document).ready(function(){
 						<?php $attributes = array('class' => 'form uniformForm validateForm', 'id' => 'form_pagos');
 						echo form_open('controladores-cobrador/controlador_administracion_pagos/agregar_pago', $attributes);   ?>
 
-<input type="hidden" name="f_var_id_credito" id="f_var_id_credito" value="<?php echo $credito['id_credito'] ?>">
-<input type="hidden" name="f_var_id_usuario" id="f_var_id_usuario" value="<?php echo $this->session->userdata('id_usuario'); ?>">
+<input type="hidden" name="f_var_id_credito" id="f_var_id_credito" value="<?php echo $credito['id_credito']; ?>">
+<input type="hidden" name="f_var_id_usuario" id="f_var_id_usuario" value="<?php echo $credito['id_usuario']; ?>">
 
                           
                         <div class="field-group">
@@ -224,7 +236,7 @@ $(document).ready(function(){
 			</div> <!-- .grid -->	
 			<div class="grid-7">
             
-            <a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_pagos/listar_creditos_semanales" class="btn btn-primary btn-xlarge block">VOLVER A LISTAR</a>
+                        <a href="<?php echo base_url();?>index.php/controladores-cobrador/controlador_administracion_pagos/listar_creditos_semanales/<?php echo $credito['id_usuario']; ?>" class="btn btn-primary btn-xlarge block">VOLVER A LISTAR</a>
 
 				
 			</div>
